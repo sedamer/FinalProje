@@ -1,4 +1,3 @@
-
 .navbar {
   background: transparent;
 
@@ -66,7 +65,9 @@
   position: relative;
 }
 
-.infinity-form .form-input input,select, option{
+.infinity-form .form-input input,
+select,
+option {
   width: 100%;
   margin-bottom: 20px;
   height: 40px;
@@ -167,5 +168,3 @@
   overflow: hidden;
   margin-bottom: 10px;
 }
-
-/* navbar */

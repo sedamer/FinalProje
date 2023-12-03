@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>Button Example</title>
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <button id="showTextareaBtn" class="btn btn-primary">
+        Textarea Göster
+      </button>
+      <div id="textareaContainer" class="mt-3" style="display: none">
+        <textarea id="myTextarea" class="form-control" rows="3"></textarea>
+        <button id="showTableBtn" class="btn btn-success mt-3">
+          Tablo Göster
+        </button>
+        <div id="tableContainer" class="mt-3" style="display: none">
+          <!-- Tablo buraya eklenecek -->
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+      document
+        .getElementById("showTextareaBtn")
+        .addEventListener("click", function () {
+          document.getElementById("textareaContainer").style.display = "block";
+        });
+
+      document
+        .getElementById("showTableBtn")
+        .addEventListener("click", function () {
+          // Bu örnekte basit bir tablo oluşturuyoruz, ihtiyaca göre tabloyu özelleştirebilirsiniz.
+          var tableHTML =
+            '<table class="table table-bordered"><thead><tr><th>Satır 1</th><th>Satır 2</th><th>Satır 3</th></tr></thead><tbody>';
+          tableHTML += "<tr><td>Veri 1</td><td>Veri 2</td><td>Veri 3</td></tr>";
+          tableHTML += "<tr><td>Veri 4</td><td>Veri 5</td><td>Veri 6</td></tr>";
+          tableHTML += "</tbody></table>";
+
+          document.getElementById("tableContainer").innerHTML = tableHTML;
+          document.getElementById("tableContainer").style.display = "block";
+        });
+    </script>
+  </body>
+</html>
