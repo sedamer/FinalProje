@@ -60,37 +60,27 @@
       </div>
     </nav>
     <div class="infinity-container" style="font-size: 16px">
-      <!-- <div class="logo">
-			<img src="image/logo.png" width="150px">
-		</div> -->
       <div class="infinity-form-block">
         <div class="infinity-click-box text-center">Hesabını Doğrula</div>
-
         <div class="infinity-fold">
           <div class="infinity-form">
             <div class="reset-form d-block">
               <form class="reset-password-form px-3">
-                <p class="mb-3" style="color: #777">
+                <p
+                  class="mb-3"
+                  class="message"
+                  id="message"
+                  style="color: #777"
+                >
                   Please enter your email address and we will send you a
                   password reset link.
                 </p>
                 <div class="col-12 mb-3 text-right">
-                  <button type="submit" class="btn">Doğrula</button>
+                  <button type="submit" onclick="dogrulamaYap()" class="btn">
+                    Doğrula
+                  </button>
                 </div>
               </form>
-            </div>
-            <div class="reset-confirmation d-none px-3">
-              <div class="mb-4">
-                <h4 class="mb-3">Link was sent</h4>
-                <h6 style="color: #777">
-                  Please, check your inbox for a password reset link.
-                </h6>
-              </div>
-              <div class="text-right">
-                <a href="login.html">
-                  <button type="submit" class="btn">Login Now</button>
-                </a>
-              </div>
             </div>
           </div>
         </div>
@@ -98,17 +88,27 @@
     </div>
 
     <script type="text/javascript">
-      function PasswordReset() {
-        $("form.reset-password-form").on("submit", function (e) {
-          e.preventDefault();
-          $(".reset-form").removeClass("d-block").addClass("d-none");
-          $(".reset-confirmation").addClass("d-block");
-        });
+      function dogrulamaYap() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const verificationCodeParam = urlParams.get("verificationCode");
+        if (verificationCodeParam) {
+          //Backend de doğrulama isteği yap.
+          fetch(`/api/dogrulama/${verificationCodeParam}`)
+            .them((response) => response.text())
+            .then((data) => {
+              //Doğrulama sonucuna göre mesajı güncelle
+              const messageElement = document.getElementById("message");
+              messageElement.textContent = data;
+              window.location.href = "/"; // anasayfanın urlsini buraya yazın
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          //Doğrulama kodu bulunamadı, ana sayfaya yönlendiriliyor.
+          window.location.href = "/"; // Ana sayfanın URL'sini buraya yazın
+        }
       }
-
-      window.addEventListener("load", function () {
-        PasswordReset();
-      });
     </script>
   </body>
 </html>

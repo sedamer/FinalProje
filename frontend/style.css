@@ -40,9 +40,7 @@
   background-color: #ff7952;
   color: #fff;
   line-height: 50px;
-  font-family: 'Cormorant Garamond', serif;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Raleway', sans-serif;
+ 
   font-size: 20px;
   box-shadow: 0 5px 10px rgba(180, 41, 41, 0.5);
 }
@@ -56,9 +54,7 @@
 
 .infinity-form .text-sm {
   font-size: 14px;
-  font-family: 'Cormorant Garamond', serif;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Raleway', sans-serif;
+ 
 }
 
 .infinity-form .form-input {
@@ -117,9 +113,7 @@ option {
   border-radius: 5px;
   background: #ff7952;
   color: #fff;
-  font-family: 'Cormorant Garamond', serif;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Raleway', sans-serif;
+ 
   font-weight: 700;
   transition: .5s;
   margin-bottom: 10px;
