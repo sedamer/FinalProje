@@ -19,6 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
     <style>
         body {
             margin: 0;
@@ -84,11 +85,11 @@
 
             <div class="infinity-fold">
                 <div class="infinity-form">
-                    <form class="form-box">
+                    <form class="form-box" action="/login" method="post">
                         <!-- Input Box -->
                         <div class="form-input">
                             <span><i class="fa fa-envelope"></i></span>
-                            <input type="email" name="" placeholder="Email Address" tabindex="10" required>
+                            <input type="text" name="name" placeholder="User Name" tabindex="10" required>
                         </div>
                         <div class="form-input">
                             <span><i class="fa fa-lock"></i></span>
@@ -113,6 +114,7 @@
                                 <a class="register-link" href="register.html">Register here!</a>
                             </div>
                     </form>
+                  
                 </div>
             </div>
         </div>
