@@ -32,11 +32,10 @@
 
     .navbar-brand,
     .nav-item {
-      font-family: 'Cormorant Garamond', serif;
-      font-family: 'Dancing Script', cursive;
-      font-family: 'Raleway', sans-serif;
+      font-family: "Cormorant Garamond", serif;
+      font-family: "Dancing Script", cursive;
+      font-family: "Raleway", sans-serif;
       color: #000000;
-
     }
 
     .container-fluid {
@@ -48,6 +47,7 @@
       transition: transform 0.1s ease;
     }
 
+ 
     .navbar-brand:hover,
     .navbar-nav a:hover {
       transform: scale(1.1);
@@ -91,17 +91,41 @@
 
         <ul class="navbar-nav ms-auto ">
           <li class="nav-item">
-            <a class="nav-link mx-2 active" aria-current="page" href="login.html">Home</a>
+            <a class="nav-link mx-2 active" aria-current="page" href="home.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="vki.html">BMI</a>
+            <a class="nav-link mx-2" href="beslenme.html">Beslenme</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="egzersiz.html">Workout</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" href="recipe.html">Recipe</a>
           </li>
-        
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="vki.html">BMI</a>
+          </li>
+
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                İsim yazacak
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                style="background-color: lightpink; border-color: aliceblue;">
+                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                <li><a class="dropdown-item" href="editProfile.html">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="#">Log Out</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          
       </div>
     </div>
+
   </nav>
   <!-- navbar end -->
 

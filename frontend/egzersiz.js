@@ -1,33 +1,36 @@
-//egzersiz js api çekme
-const express = require("express");
-const fetch = require("node-fetch");
+// calculateCalories.js
 
-const app = express();
+function calculateCalories() {
+  var apiKey = "21f646cc531ee89503677fed7e8b1997";
+  var apiId = "38b6b0bc";
 
-app.use(express.static("public")); // Public klasöründeki dosyaları kullanmak için
+  var exerciseInput = document.getElementById("exerciseInput").value;
+  var durationInput = document.getElementById("durationInput").value;
 
-app.get("/getExerciseData", async (req, res) => {
-  const { query, duration_min } = req.query;
-  const nutritionixApiUrl = `https://api.nutritionix.com/v1_1/exercise`;
-
-  // Nutritionix API anahtarları
-  const appId = "38b6b0bc";
-  const appKey = "21f646cc531ee89503677fed7e8b1997";
-  const exerciseParams = {
-    appId,
-    appKey,
-    query,
-    duration_min,
+  var requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-app-id": apiId,
+      "x-app-key": apiKey,
+    },
+    body: JSON.stringify({
+      query: `${exerciseInput} for ${durationInput} minutes`,
+    }),
   };
 
-  try {
-    const response = await fetch(
-      `${nutritionixApiUrl}?${new URLSearchParams(exerciseParams)}`
-    );
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching exercise data:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+  fetch("https://trackapi.nutritionix.com/v2/natural/exercise", requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("API Response:", data);
+
+      var resultContainer = document.getElementById("resultContainer");
+      resultContainer.innerHTML = `<p>Exercise: ${data.exercises[0].name}</p>
+                                      <p>Calories Burned: ${data.exercises[0].nf_calories}
+                                      <p>Duration Minute: ${data.exercises[0].duration_min}</p>
+                                      `;
+    })
+    .catch((error) => {
+      console.error("API Error:", error.message);
+    });
+}

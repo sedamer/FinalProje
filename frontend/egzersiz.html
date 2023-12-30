@@ -114,12 +114,22 @@
     </div>
 
   </nav>
-  <h1>Exercise Data</h1>
-  <button onclick="getExerciseData()">Get Exercise Data</button>
 
-  <div id="resultContainer"></div>
+  <form id="calorieForm">
+    <label for="exerciseInput">Exercise:</label>
+    <input type="text" id="exerciseInput" placeholder="Enter exercise">
 
-  <script>
+    <label for="durationInput">Duration (minutes):</label>
+    <input type="number" id="durationInput" placeholder="Enter duration">
+
+    <button type="button" onclick="calculateCalories()">Calculate Calories</button>
+</form>
+
+<div id="resultContainer"></div>
+
+<!-- calculateCalories.js dosyasını ekleyin -->
+<script src="egzersiz.js"></script>
+  <!-- <script>
     function getExerciseData() {
       const exerciseType = prompt('Enter exercise type:');
       const exerciseDuration = prompt('Enter exercise duration (minutes):');
@@ -138,7 +148,7 @@
       const resultContainer = document.getElementById('resultContainer');
       resultContainer.innerHTML = JSON.stringify(data, null, 2);
     }
-  </script>
+  </script> -->
   <!-- <div class="container">
     <div class="row">
       <div class="col">
