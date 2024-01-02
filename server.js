@@ -23,6 +23,7 @@ app.post("/register", async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
+      gender: req.body.gender,
       weight: req.body.weight,
       height: req.body.height,
       age: req.body.age,
