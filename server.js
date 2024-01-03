@@ -1,6 +1,7 @@
 const express = require("express");
 //const mongoose = require("mongoose");
-const UserModel = require("./models/user");
+const { UserModel, NutritionModel } = require("./models/user"); // Doğru import ettiğinden emin ol
+
 const path = require("path");
 const app = express();
 const PORT = 3005;
@@ -39,25 +40,32 @@ app.post("/register", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+app.post("./addNutrition", async (req, res) => {
+  try {
+    const { meal, food, calories } = req.body;
+    const nutritionData = new NutritionModel({ meal, food, calories });
+    await nutritionData.save();
+    res.status(201).send("Nutrition data added successfully.");
+  } catch (error) {
+    console.error("Error adding nutrition data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+const nutritionData = new NutritionModel({
+  meal: "Sabah",
+  food: "Pilav",
+  calories: 500,
+});
+
+nutritionData
+  .save()
+  .then(() => {
+    console.log("Beslenme verisi başarıyla kaydedildi.");
+  })
+  .catch((error) => {
+    console.error("Hata:", error);
+  });
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
-// app.get("/insert", (req, res) => {
-//   var userSchema = new UserModel();
-//   userSchema.name = "Seda Mercan";
-//   userSchema.email = "mrcnsedaa@gmail.com";
-//   userSchema.password = "mercans123";
-//   userSchema.age = 22;
-//   userSchema.gender = "Female";
-//   userSchema.height = 175;
-//   userSchema.weight = 69;
-
-//   userSchema
-//     .save()
-//     .then((savedUser) => {
-//       res.status(201).send(savedUser);
-//     })
-//     .catch((err) => {
-//       res.status(500).send(err);
-//     });
-// });

@@ -54,5 +54,24 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+const nutritionSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  meal: {
+    type: String,
+  },
+  food: {
+    type: String,
+  },
+
+  calories: {
+    type: Number,
+  },
+});
+
 const UserModel = mongoose.model("user", userSchema);
-module.exports = UserModel;
+const NutritionModel = mongoose.model("nutrition", nutritionSchema);
+
+module.exports = { UserModel, NutritionModel };

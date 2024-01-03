@@ -5,8 +5,6 @@
   <title>Workfit Wellness</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" type="text/css" href="style.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link rel="icon" type="image/x-icon"
     href="faity_dumbbell_gym_sportswear_athlete_sport_hehy_workout_fitness_icon_228905.ico" />
@@ -15,12 +13,23 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Dancing+Script:wght@500&family=Raleway:wght@300&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
   <style>
     body {
       margin: 0;
@@ -46,33 +55,26 @@
       position: relative;
       min-height: 100vh;
     }
-
-    .navbar-brand {
-      color: #000000;
-
-      text-align: center;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    /* Navbar Item Style */
+    .navbar-brand,
     .nav-item {
-      font-family: "Cormorant Garamond", serif;
-      font-family: "Dancing Script", cursive;
-      font-family: "Raleway", sans-serif;
+     
       color: #000000;
     }
 
-    /* Navbar Hover Effect */
+    .container-fluid {
+      background-color: transparent;
+    }
+
     .navbar-brand,
     .navbar-nav a {
-      transition: transform 0.5s ease;
+      transition: transform 0.1s ease;
     }
 
-    .custom-navbar {
-      margin-left: 100%;
-      /* Sol taraftan uzaklaşarak sağa hizala */
+    .navbar-brand:hover,
+    .navbar-nav a:hover {
+      transform: scale(1.1);
+      /* Büyüme faktörünü ayarlayabilirsiniz */
+      color: black;
     }
 
     .carousel-item {
@@ -162,80 +164,102 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <!-- Navbar Brand (Site Name) -->
-      <a class="navbar-brand" href="login.html" style="font-size: 35px ;color:white;">Workfit Wellness</a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-md navbar-light" style="background-color: transparent;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html" style="font-size: 25px;">WorkFit Wellness</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto custom-navbar">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" style="font-size: 18px; color:white;">Home <span
-                class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: 18px; color:white;" href="vki.html">BMI</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: 18px;color:white;" href="recipe.html">Recipe</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="content">
-    <!-- Sayfa içeriği buraya gelecek -->
+      <div class=" collapse navbar-collapse" id="navbarNavDropdown">
 
-    <div id="carouselExampleIndicators" class="carousel slide my-carousel my-carousel" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="carousel-item active" style="background-image: url('./img/sonnü.jpg')">
-          <div class="carousel-caption">
-            <h3>Healthier Living with Quick Recipe Search</h3>
-            <p>
-              Discover and enjoy health-conscious recipes tailored to your
-              nutritional needs
-            </p>
-          </div>
-        </div>
-        <div class="carousel-item" style="background-image: url('./img/spor.jpg')">
-          <div class="carousel-caption">
-            <h3>Efficient Exercise Calorie Monitoring</h3>
-            <p>
-              Achieve your fitness goals with real-time calorie burn insights
-              during your workouts
-            </p>
-          </div>
-        </div>
-        <div class="carousel-item" style="background-image: url('./img/nutri.jpg')">
-          <div class="carousel-caption">
-            <h3>Nutrition Tracking Made Easy!</h3>
-            <p>
-              Effortlessly manage your nutritional intake on our platform for
-              a healthier lifestyle
-            </p>
-          </div>
-        </div>
+        <ul class="navbar-nav ms-auto ">
+          <li class="nav-item">
+            <a class="nav-link mx-2 active" aria-current="page" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="beslenme.html">Nutrition</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="egzersiz.html">Workout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="recipe.html">Recipe</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="vki.html">BMI</a>
+          </li>
+
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                İsim yazacak
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                style="background-color: lightpink; border-color: aliceblue;">
+                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                <li><a class="dropdown-item" href="editProfile.html">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="#">Log Out</a></li>
+              </ul>
+            </li>
+          </ul>
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
     </div>
-    </header>
+
+  </nav>
+
+  <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+      <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+ <!-- The slideshow/carousel -->
+ <div class="carousel-inner">
+  <div class="carousel-item active">
+    <img src="./img/sonnü.jpg"  class="d-block" style="width:100%">
+    <div class="carousel-caption">
+      <h3>Healthier Living with Quick Recipe Search</h3>
+      <p>Discover and enjoy health-conscious recipes tailored to your
+        nutritional needs</p>
+    </div>
+  </div>
+  <div class="carousel-item">
+    <img src="./img/spor.jpg"  class="d-block" style="width:100%">
+    <div class="carousel-caption">
+      <h3>Efficient Exercise Calorie Monitoring</h3>
+      <p>Achieve your fitness goals with real-time calorie burn insights
+        during your workouts</p>
+    </div> 
+  </div>
+  <div class="carousel-item">
+    <img src="./img/nutri.jpg"  class="d-block" style="width:100%">
+    <div class="carousel-caption">
+      <h3>Nutrition Tracking Made Easy!</h3>
+      <p> Effortlessly manage your nutritional intake on our platform for
+        a healthier lifestyle</p>
+    </div>  
+  </div>
+</div>
+ <!-- Left and right controls/icons -->
+ <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon"></span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+  <span class="carousel-control-next-icon"></span>
+</button>
+</div>
+
+<div class="container-fluid mt-3">
+<h3>Carousel Example</h3>
+<p>The following example shows how to create a basic carousel with indicators and controls.</p>
+</div>
+     
     <div class="container mt-4">
       <div class="row">
         <div class="col-lg-4">
@@ -270,23 +294,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="container text-center" >
-    <div class="row">
-      <div class="col">
-        <img src="./img/kızz (1).png" alt="">
-      </div>
-      <div class="col" >
-        <div class="card" id="kiz"style="width: 100%; height: 100%;"> 
-          <div class="card-body
-          " >
-          <h3 style="font-size: 24px; font-style: italic;">WorkFit Wellness</h3>
-         <p style="margin-left: 5%; text-align:center; padding: 10%;">
-          Embark on a delicious journey with our recipes, where simplicity meets flavor. Explore a variety of tasty recipes tailored to your taste and nutritional goals. Whether you crave wholesome meals, calorie-conscious dishes, or delightful treats, our platform inspires culinary creativity. Easily track your daily intake and workout progress, promoting a healthier lifestyle. Join our community for a flavorful and nutritious adventure today!</p></div>
-        </div>
-      </div>
-    </div> -->
-
 
   </div>
   </div>

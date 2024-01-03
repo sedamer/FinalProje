@@ -1,276 +1,76 @@
-(function () {
-  const recipeInput = document.getElementById("recipe");
-  const recipeInput2 = document.getElementById("recipe2");
-  const recipeInput3 = document.getElementById("recipe3");
-  const recipeInput4 = document.getElementById("recipe4");
+function calculateNutri(index) {
+  var apiKey = "cc21719f62036fd3f120be18e2bce862"; // Replace with your Nutritionix API key
+  var apiId = "38b6b0bc"; // Replace with your Nutritionix API ID
+  var recipe = document.getElementById(`recipe${index}`).value;
+  var exercises = recipe
+    .split("\n")
+    .filter((exercise) => exercise.trim() !== "");
 
-  const output = document.getElementById("output");
-  const APP_ID = "26896595";
-  const API_KEY = "b59ede326f64c8f26a3e095557b220b3";
+  var resultContainer = document.getElementById(`tableContainer${index}`);
+  resultContainer.innerHTML = "";
 
-  function fetchRecipe() {
-    let ingr = recipeInput.value.split("\n"); // '\n' ile ayrılmış satırlara göre böl
-    return fetch(
-      `https://api.edamam.com/api/nutrition-details?app_id=${APP_ID}&app_key=${API_KEY}`,
-      {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json", // Boşluk karakterini kaldır
-        },
-        body: JSON.stringify({ ingr }), // 'stringify' fonksiyonu düzeltilmiş
-      }
-    ).then((response) => response.json());
-  }
-  function fetchRecipe2() {
-    let ingr = recipeInput2.value.split("\n"); // '\n' ile ayrılmış satırlara göre böl
-    return fetch(
-      `https://api.edamam.com/api/nutrition-details?app_id=${APP_ID}&app_key=${API_KEY}`,
-      {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json", // Boşluk karakterini kaldır
-        },
-        body: JSON.stringify({ ingr }), // 'stringify' fonksiyonu düzeltilmiş
-      }
-    ).then((response) => response.json());
-  }
-  function fetchRecipe3() {
-    let ingr = recipeInput3.value.split("\n"); // '\n' ile ayrılmış satırlara göre böl
-    return fetch(
-      `https://api.edamam.com/api/nutrition-details?app_id=${APP_ID}&app_key=${API_KEY}`,
-      {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json", // Boşluk karakterini kaldır
-        },
-        body: JSON.stringify({ ingr }), // 'stringify' fonksiyonu düzeltilmiş
-      }
-    ).then((response) => response.json());
-  }
+  var totalCalories = 0;
 
-  function fetchRecipe4() {
-    let ingr = recipeInput4.value.split("\n"); // '\n' ile ayrılmış satırlara göre böl
-    return fetch(
-      `https://api.edamam.com/api/nutrition-details?app_id=${APP_ID}&app_key=${API_KEY}`,
-      {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json", // Boşluk karakterini kaldır
-        },
-        body: JSON.stringify({ ingr }), // 'stringify' fonksiyonu düzeltilmiş
-      }
-    ).then((response) => response.json());
-  }
+  exercises.forEach((exercise, i) => {
+    var requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-app-id": apiId,
+        "x-app-key": apiKey,
+      },
+      body: JSON.stringify({
+        query: exercise,
+      }),
+    };
 
-  document
-    .getElementById("recipe-check-form")
-    .addEventListener("click", function (e) {
-      e.preventDefault();
-      fetchRecipe().then((data) => {
-        let fragments = [];
-        Object.keys(data.totalDaily).forEach((key) => {
-          let obj = data.totalDaily[key];
-          fragments.push(
-            `<table class="table table-bordered">
+    fetch(
+      "https://trackapi.nutritionix.com/v2/natural/nutrients",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`API Response for Exercise ${i + 1}:`, data);
 
-            <tr>
-              <td>${obj.label}</td>
-              <td>${obj.quantity.toFixed(2)}${obj.unit}</td>
-            </tr>
-          </table>`
-          );
-        });
+        if (data.foods && data.foods.length > 0) {
+          var calories = data.foods[0].nf_calories;
+          totalCalories += calories;
 
-        console.log(data);
-        document
-          .getElementById("showTableBtn")
-          .addEventListener("click", function () {
-            console.log("Button clicked");
+          resultContainer.innerHTML += `
+            <table style="border: 1px solid black; width:100%;">
+              <tr>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Food</th>
+                <th>Calories</th>
+                <th>Protein(gr)</th>
+                <th>Carbohydrate(gr)</th>
+                <th>Fats(gr)</th>
+              </tr>
+              <tr>
+                <td>${data.foods[0].serving_qty}</td>
+                <td>${data.foods[0].serving_unit}</td>
+                <td>${data.foods[0].food_name}</td>
+                <td>${calories}</td>
+                <td>${data.foods[0].nf_protein}</td>
+                <td>${data.foods[0].nf_total_carbohydrate}</td>
+                <td>${data.foods[0].nf_total_fat}</td>
+              </tr>
+            </table>
+            <br>`;
+        } else {
+          resultContainer.innerHTML += `<p>No data available for Exercise ${
+            i + 1
+          }</p><br>`;
+        }
 
-            let tableHTML = `<table class="table table-bordered">
-                            <thead>
-                              <tr>
-                                <th>Calories</th>
-
-                              </tr>
-                              <tr>
-                          
-                              <th>${data.calories}</th>
-                            </tr>
-                            </thead>
-                            <tbody>`;
-
-            // fragments dizisindeki her öğeyi tabloya ekleyin
-            fragments.forEach((fragment) => {
-              tableHTML += `<tr>${fragment}</tr>`;
-            });
-
-            tableHTML += `</tbody></table>`;
-
-            document.getElementById("tableContainer").innerHTML = tableHTML;
-            document.getElementById("tableContainer").style.display = "block";
-          });
+        // Display total calories when all exercises are processed
+        if (i === exercises.length - 1) {
+          resultContainer.innerHTML += `<p>Total Calories Consumed: ${totalCalories}</p>`;
+        }
+      })
+      .catch((error) => {
+        console.error(`API Error for Exercise ${i + 1}:`, error.message);
       });
-    });
-
-  document
-    .getElementById("recipe-check-form2")
-    .addEventListener("click", function (e) {
-      e.preventDefault();
-      fetchRecipe2().then((data) => {
-        let fragments = [];
-        Object.keys(data.totalDaily).forEach((key) => {
-          let obj = data.totalDaily[key];
-          fragments.push(
-            `<table class="table table-bordered">
-
-        <tr>
-          <td>${obj.label}</td>
-          <td>${obj.quantity.toFixed(2)}${obj.unit}</td>
-        </tr>
-      </table>`
-          );
-        });
-
-        console.log(data);
-        document
-          .getElementById("showTableBtn2")
-          .addEventListener("click", function () {
-            console.log("Button clicked");
-
-            let tableHTML = `<table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Calories</th>
-
-                          </tr>
-                          <tr>
-                      
-                          <th>${data.calories}</th>
-                        </tr>
-                        </thead>
-                        <tbody>`;
-
-            // fragments dizisindeki her öğeyi tabloya ekleyin
-            fragments.forEach((fragment) => {
-              tableHTML += `<tr>${fragment}</tr>`;
-            });
-
-            tableHTML += `</tbody></table>`;
-
-            document.getElementById("tableContainer2").innerHTML = tableHTML;
-            document.getElementById("tableContainer2").style.display = "block";
-          });
-      });
-    });
-
-  document
-    .getElementById("recipe-check-form3")
-    .addEventListener("click", function (e) {
-      e.preventDefault();
-      fetchRecipe3().then((data) => {
-        let fragments = [];
-        Object.keys(data.totalDaily).forEach((key) => {
-          let obj = data.totalDaily[key];
-          fragments.push(
-            `<table class="table table-bordered">
-
-        <tr>
-          <td>${obj.label}</td>
-          <td>${obj.quantity.toFixed(2)}${obj.unit}</td>
-        </tr>
-      </table>`
-          );
-        });
-
-        console.log(data);
-        document
-          .getElementById("showTableBtn3")
-          .addEventListener("click", function () {
-            console.log("Button clicked");
-
-            let tableHTML = `<table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Calories</th>
-
-                          </tr>
-                          <tr>
-                      
-                          <th>${data.calories}</th>
-                        </tr>
-                        </thead>
-                        <tbody>`;
-
-            // fragments dizisindeki her öğeyi tabloya ekleyin
-            fragments.forEach((fragment) => {
-              tableHTML += `<tr>${fragment}</tr>`;
-            });
-
-            tableHTML += `</tbody></table>`;
-
-            document.getElementById("tableContainer3").innerHTML = tableHTML;
-            document.getElementById("tableContainer3").style.display = "block";
-          });
-      });
-    });
-
-  document
-    .getElementById("recipe-check-form4")
-    .addEventListener("click", function (e) {
-      e.preventDefault();
-      fetchRecipe4().then((data) => {
-        let fragments = [];
-        Object.keys(data.totalDaily).forEach((key) => {
-          let obj = data.totalDaily[key];
-          fragments.push(
-            `<table class="table table-bordered">
-
-        <tr>
-          <td>${obj.label}</td>
-          <td>${obj.quantity.toFixed(2)}${obj.unit}</td>
-        </tr>
-      </table>`
-          );
-        });
-
-        console.log(data);
-        document
-          .getElementById("showTableBtn4")
-          .addEventListener("click", function () {
-            console.log("Button clicked");
-
-            let tableHTML = `<table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Calories</th>
-
-                          </tr>
-                          <tr>
-                      
-                          <th>${data.calories}</th>
-                        </tr>
-                        </thead>
-                        <tbody>`;
-
-            // fragments dizisindeki her öğeyi tabloya ekleyin
-            fragments.forEach((fragment) => {
-              tableHTML += `<tr>${fragment}</tr>`;
-            });
-
-            tableHTML += `</tbody></table>`;
-
-            document.getElementById("tableContainer4").innerHTML = tableHTML;
-            document.getElementById("tableContainer4").style.display = "block";
-          });
-      });
-    });
-})();
-
-// textarea tasarım, kalori tablosu taasrımı, sayfa tasarımı,
-
-// En sonunda toplam kalori miktarı yazsın yani kullanıcının girdiği kilo-boy-yaş-cinsiyet bilgis,ne göre aldıgı kalori miktaro uygun mu değil mi diye kontrol etsin ve feedback versin!
+  });
+}

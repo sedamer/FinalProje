@@ -18,7 +18,23 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Dancing+Script:wght@500&family=Raleway:wght@300&display=swap"
     rel="stylesheet" />
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      function showTextarea(buttonId, textareaId) {
+        var showTextareaBtn = document.getElementById(buttonId);
+        var textareaContainer = document.getElementById(textareaId);
 
+        showTextareaBtn.addEventListener("click", function () {
+          textareaContainer.style.display = "block";
+        });
+      }
+
+      showTextarea('showTextareaBtn', 'textareaContainer');
+      showTextarea('showTextareaBtn1', 'textareaContainer1');
+      showTextarea('showTextareaBtn2', 'textareaContainer2');
+      showTextarea('showTextareaBtn3', 'textareaContainer3');
+    });
+  </script>
   <style>
     body {
       margin: 0;
@@ -26,6 +42,9 @@
       background-color: aliceblue;
       background-size: cover;
       background: url('./img/ll.jpg');
+      font-family: "Cormorant Garamond", serif;
+      font-family: "Dancing Script", cursive;
+      font-family: "Raleway", sans-serif;
     }
 
     .navbar-brand,
@@ -70,14 +89,24 @@
       /* Hover efekti ile butonun boyutunu büyütme */
     }
 
-    #showTextareaBtn ,  #showTextareaBtn2,#showTextareaBtn3,   #showTextareaBtn4 {
+    #showTextareaBtn,
+    #showTextareaBtn1,
+    #showTextareaBtn2,
+    #showTextareaBtn3 {
       /* // breakfast butonu */
       background-color: #ffa500;
     }
-    #showTableBtn,  #showTableBtn2,  #showTableBtn3,  #showTableBtn4{
-      background-color: #B6C767;
-
-    }
+    .baslik{
+      font-style: italic;
+      font-family: "Cormorant Garamond", serif;
+      font-family: "Dancing Script", cursive;
+      font-family: "Raleway", sans-serif;    }
+      .yazi{
+        font-style: italic;
+      font-family: "Cormorant Garamond", serif;
+      font-family: "Dancing Script", cursive;
+      font-family: "Raleway", sans-serif;
+      }
   </style>
 </head>
 
@@ -97,7 +126,7 @@
             <a class="nav-link mx-2 active" aria-current="page" href="home.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="beslenme.html">Beslenme</a>
+            <a class="nav-link mx-2" href="beslenme.html">Nutrition</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" href="egzersiz.html">Workout</a>
@@ -141,52 +170,105 @@
 
   </nav>
   <!-- breakfasts -->
-  <div class="container text-center">  
+  <div class="container text-center">
     <div class="row">
-      <div class="col">
-        <div class="container mt-5">
-    <div class="card" id="output"style=" background: inherit;width: 68%; ">
-      <div class="card-body" >
-        <form id="recipe-check-form">
-          <div class="mb-3">
-            <button id="showTextareaBtn" class="btn form-label">Breakfast</button>
-            <div id="textareaContainer" class="mt-3" style="display: none;">
-              <textarea class="form-control" id="recipe" name="recipe" rows="4"></textarea>
-              <button id="showTableBtn" class="btn mt-4">Calculate</button>
-            </div>
-
-            <!-- Diğer inputları ve submit butonunu ekleyebilirsiniz -->
-            <div id="tableContainer" class="mt-3" style="display: none">
-              <!-- Tablo buraya eklenecek -->
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!-- //  şimdii ilk önce html-css ve gerekirse js kısmını hazırla -->
-  <div class="container mt-3">
-    <div class="card" id="output2" style=" background: inherit;width: 68%;">
-      <div class="card-body" >
-        <form id="recipe-check-form2">
-          <div class="mb-3">
-            <button id="showTextareaBtn2" class="btn form-label">Brunch</button>
-            <div id="textareaContainer2" class="mt-3" style="display: none;">
-              <textarea class="form-control" id="recipe2" name="recipe2" rows="4"></textarea>
-              <button id="showTableBtn2" class="btn btn-primary mt-4">Calculate</button>
-              <div id="tableContainer2" class="mt-3" style="display: none"> </div>
-
-              <!-- Tablo buraya eklenecek -->
+      <!-- Sol sütun - Textarealar -->
+      <div class="col-lg-6">
+        <!-- Breakfast Kartı -->
+        <div class="container mt-3">
+          <div class="card" id="breakfastCard" style="background: inherit; width: 100%;">
+            <div class="card-body">
+              <div class="mb-3">
+                <button id="showTextareaBtn" class="btn form-label">Breakfast</button>
+                <div id="textareaContainer" class="mt-3" style="display: none;">
+                  <div>
+                    <textarea class="form-control" id="recipe1" name="recipe" rows="4"></textarea>
+                    <button class="btn mt-4" onclick="calculateNutri(1)">Calculate</button>
+                    <div id="tableContainer1"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </form>
+        </div>
+        <div class="container mt-3">
+          <div class="card" id="lunchCard" style="background: inherit; width: 100%;">
+            <div class="card-body">
+              <div class="mb-3">
+                <button id="showTextareaBtn1" class="btn form-label">Branch</button>
+                <div id="textareaContainer1" class="mt-3" style="display: none;">
+                  <div>
+                    <textarea class="form-control" id="recipe2" name="recipe" rows="4"></textarea>
+                    <button class="btn mt-4" onclick="calculateNutri(2)">Calculate</button>
+                    <div id="tableContainer2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Lunch Kartı -->
+        <div class="container mt-3">
+          <div class="card" id="lunchCard" style="background: inherit; width: 100%;">
+            <div class="card-body">
+              <div class="mb-3">
+                <button id="showTextareaBtn2" class="btn form-label">Lunch</button>
+                <div id="textareaContainer2" class="mt-3" style="display: none;">
+                  <div>
+                    <textarea class="form-control" id="recipe3" name="recipe" rows="4"></textarea>
+                    <button class="btn mt-4" onclick="calculateNutri(3)">Calculate</button>
+                    <div id="tableContainer3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Ek Öğün Kartı -->
+        <div class="container mt-3">
+          <div class="card" id="extrasCard" style="background: inherit; width: 100%;">
+            <div class="card-body">
+              <div class="mb-3">
+                <button id="showTextareaBtn3" class="btn form-label">Extras</button>
+                <div id="textareaContainer3" class="mt-3" style="display: none;">
+                  <div>
+                    <textarea class="form-control" id="recipe4" name="recipe" rows="4"></textarea>
+                    <button class="btn mt-4" onclick="calculateNutri(4)">Calculate</button>
+                    <div id="tableContainer4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Lunch -->
+  
+      <!-- Sağ sütun - Workout -->
+      <div class="col-lg-6">
+        <div class="container mt-3">
+          <div class="card" id="workoutCard" style="background: inherit; width: 100%;">
+            <div class="card-body">
+              <h3 class="baslik">DAILY REMINDER</h3>
+              <p class="yazi">
+                "Hydration Elevation: Elevate your day with the elixir of life – water! Aim for 8 glasses to rejuvenate your body and enhance your daily vitality. Cheers to hydration and well-being!"</p>
+            </div>
+          </div>
+        </div>
 
   <div class="container mt-3">
+    
+        <!-- Resim Eklenen Kısım -->
+        <img src="./img/eatRight.png" alt="Workout Image" style="width: 100%; max-height: 300px; object-fit: cover;">
+    
+  </div>
+</div>
+
+
+
+    <!-- Lunch -->
+
+    <!-- <div class="container mt-3">
     <div class="card" id="output3" style=" background: inherit;width: 68%;">
       <div class="card-body" >
         <form id="recipe-check-form3">
@@ -197,64 +279,15 @@
               <button id="showTableBtn3" class="btn mt-4">Calculate</button>
               <div id="tableContainer3" class="mt-3" style="display: none"> </div>
 
-              <!-- Tablo buraya eklenecek -->
-            </div>
+              Tablo buraya eklenecek -->
+    <!-- </div>
           </div>
         </form>
       </div>
     </div>
-  </div>
-<!-- Ara Öğün -->
+  </div> -->
 
-
-
-<div class="container mt-3">
-  <div class="card" id="output4" style=" background: inherit;width: 68%; ">
-    <div class="card-body" >
-      <form id="recipe-check-form4">
-        <div class="mb-3">
-          <button id="showTextareaBtn4" class="btn form-label" >Ek Öğün</button>
-          <div id="textareaContainer4" class="mt-3" style="display: none;">
-            <textarea class="form-control" id="recipe4" name="recipe4" rows="4"></textarea>
-            <button id="showTableBtn4" class="btn mt-4">Calculate</button>
-            <div id="tableContainer4" class="mt-3" style="display: none"> </div>
-
-            <!-- Tablo buraya eklenecek -->
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  </div>
-</div>
-<div class="col">    <img src="./img/eatRight.png"  style="width: 97%; margin-left: 3%; ">
-  </div>
-</div>
-
-  <script>
-    document.getElementById('showTextareaBtn').addEventListener("click", function () {
-      document.getElementById('textareaContainer').style.display = "block";
-    });
-
-
-    document.getElementById('showTextareaBtn2').addEventListener("click", function () {
-      document.getElementById('textareaContainer2').style.display = "block";
-    });
-
-
-    document.getElementById('showTextareaBtn3').addEventListener("click", function () {
-      document.getElementById('textareaContainer3').style.display = "block";
-    });
-
-    document.getElementById('showTextareaBtn4').addEventListener("click", function () {
-      document.getElementById('textareaContainer4').style.display = "block";
-    });
-
-
-
-  </script>
-
-  <script src="beslenme.js"></script>
+    <script src="beslenme.js"></script>
 </body>
 
 </html>
