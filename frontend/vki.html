@@ -107,21 +107,19 @@
           </li>
 
 
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                İsim yazacak
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
-                style="background-color: lightpink; border-color: aliceblue;">
-                <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                <li><a class="dropdown-item" href="editProfile.html">Edit Profile</a></li>
-                <li><a class="dropdown-item" href="#">Log Out</a></li>
-              </ul>
-            </li>
-          </ul>
-
+          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <button id="userName" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" style="background-color: lightpink; border-color: aliceblue;">
+                  <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                  <li><a class="dropdown-item" href="editProfile.html">Edit Profile</a></li>
+                  <li><a class="dropdown-item"  id="logoutLink" href="login.html">Log Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
           
       </div>
     </div>
@@ -280,6 +278,8 @@
     </div>
     </p>
   </div>
+    <!-- Diğer HTML dosyalarında bu satırı ekleyin -->
+<script src="navbar-script.js"></script>
 </body>
 
 </html>

@@ -81,7 +81,7 @@
 
             <div class="infinity-fold">
                 <div class="infinity-form">
-                    <form class="form-box" action="/login" method="post">
+                    <form id="loginForm"  class="form-box" action="/login" method="post">
                         <!-- Input Box -->
                         <div class="form-input">
                             <span><i class="fa fa-envelope"></i></span>
@@ -89,8 +89,9 @@
                         </div>
                         <div class="form-input">
                             <span><i class="fa fa-lock"></i></span>
-                            <input type="password" name="" placeholder="Password" required>
+                            <input type="password" name="password" placeholder="Password" required>
                         </div>
+                        
                         <div class="row mb-2">
                             <!--Remember Checkbox -->
                             <div class="col-6 d-flex align-items-center">

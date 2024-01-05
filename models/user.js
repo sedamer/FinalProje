@@ -25,11 +25,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  gender: {
-    type: String,
-    enum: ["Male", "Female", "Other"],
-    required: true,
-  },
+
   height: {
     type: Number,
     required: true,
@@ -51,6 +47,10 @@ const userSchema = new mongoose.Schema({
   userimage: {
     type: String,
     default: "default.png",
+  },
+  token: {
+    type: String,
+    required: true,
   },
 });
 
