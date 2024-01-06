@@ -175,12 +175,12 @@ ikincisi boy-kilo-bio -->
           <div class="col-md-6">
             <div class="profile-head">
               
-                <h5><span id="userName"></span></p>
+                <!-- <h5><span id="userGender"></span></p> -->
               </h5>
 
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="./profile.html" role="tab"
                     aria-controls="home" aria-selected="true">About</a>
                 </li>
 
@@ -213,6 +213,14 @@ ikincisi boy-kilo-bio -->
                   </div>
                   <div class="col-md-6">
                     <p><span id="userEmail"></span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Gender</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><span id="userGender"></span></p>
                   </div>
                 </div>
                 <div class="row">
@@ -254,22 +262,23 @@ ikincisi boy-kilo-bio -->
   <!-- Diğer HTML dosyalarında bu satırı ekleyin -->
   <script src="navbar-script.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch('/profile')
-        .then(response => response.json())
-        .then(user => {
-          // Elde edilen JSON verilerini kullanarak HTML içeriğini güncelle
-          document.getElementById('userName').textContent = user.name;
-          document.getElementById('userEmail').textContent = user.email;
-          document.getElementById('userHeight').textContent = user.height;
-          document.getElementById('userWeight').textContent = user.weight;
-          document.getElementById('userAge').textContent = user.age;
+   document.addEventListener('DOMContentLoaded', () => {
+  fetch('/profile')
+    .then(response => response.json())
+    .then(user => {
+      // Elde edilen JSON verilerini kullanarak HTML içeriğini güncelle
+      document.getElementById('userName').textContent = user.name;
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('userGender').textContent = user.gender;
 
+      document.getElementById('userHeight').textContent = user.height;
+      document.getElementById('userWeight').textContent = user.weight;
+      document.getElementById('userAge').textContent = user.age;
 
-          // Diğer bilgileri de aynı şekilde güncelleyin
-        })
-        .catch(error => console.error('Error fetching user profile:', error));
-    });
+      // Diğer bilgileri de aynı şekilde güncelleyin
+    })
+    .catch(error => console.error('Error fetching user profile:', error));
+});
 
   </script>
 </body>

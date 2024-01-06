@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const bcryptjs = require("bcryptjs");
 
+const multer = require("multer");
+
 const path = require("path");
 const app = express();
 const PORT = 3005;
@@ -54,12 +56,13 @@ app.post("/register", async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: await hashPass(req.body.password),
+        gender: req.body.gender,
         weight: req.body.weight,
         height: req.body.height,
         age: req.body.age,
         token: token,
       };
-
+      console.log(req.body);
       await UserModel.insertMany(data);
       currentUser = {
         name: req.body.name,
@@ -115,13 +118,25 @@ app.post("/logout", (req, res) => {
   // Örneğin: token = null;
   res.json({ message: "Çıkış başarılı" });
 });
-
 app.get("/profile", async (req, res) => {
   try {
-    const user = await UserModel.findOne({ name: currentUser.name });
+    // Kullanıcı adını currentUser'dan alın
+    const userName = currentUser ? currentUser.name : null;
+
+    // Kullanıcı adına göre veritabanından kullanıcıyı bul
+    const user = await UserModel.findOne({ name: userName });
+
     if (user) {
       // JSON verilerini doğrudan gönder
-      res.json(user);
+      res.json({
+        name: user.name,
+        email: user.email,
+        gender: user.gender,
+        height: user.height,
+        weight: user.weight,
+        age: user.age,
+        // Diğer bilgileri de ekle
+      });
     } else {
       res.status(404).json({ error: "User not found" });
     }

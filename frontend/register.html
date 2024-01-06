@@ -148,6 +148,37 @@
                 />
               </div>
 
+              <div class="form-check form-check-inline">
+                <div class="gender-radio">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="exampleRadios1"
+                    value="Female"
+                    checked
+                  />
+                  <label class="form-check-label" for="exampleRadios1">
+                    Female
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <div class="gender-radio">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="exampleRadios2"
+                    value="Male"
+                  />
+                  <label class="form-check-label" for="exampleRadios2">
+                    Male
+                  </label>
+                </div>
+              </div>
+
               <br />
               <div class="form-input">
                 <span><i class="fa-solid fa-dumbbell"></i></span>
@@ -192,34 +223,5 @@
         </p>
       </footer>
     </div>
-
-    <!-- <script>
-      document
-        .getElementById("registerForm")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault();
-
-          const formData = {
-            name: document.querySelector('input[name="name"]').value,
-            email: document.querySelector('input[name="email"]').value,
-            password: document.querySelector('input[name="password"]').value,
-            weight: document.querySelector('input[name="weight"]').value,
-            height: document.querySelector('input[name="height"]').value,
-            age: document.querySelector('input[name="age"]').value,
-            // Diğer input alanları
-          };
-
-          const response = await fetch("http://localhost:3003/register", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          });
-
-          const result = await response.json();
-          console.log(result);
-        });
-    </script> -->
   </body>
 </html>
