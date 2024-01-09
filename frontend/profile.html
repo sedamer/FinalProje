@@ -164,14 +164,14 @@ ikincisi boy-kilo-bio -->
     <div class="container profile">
       <form method="post">
         <div class="row">
-          <div class="col-md-4">
-            <div class="profile-img">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-                alt="" />
-
-            </div>
+          <div class="card-body text-center" id="uploadForm">
+            <!-- Profile picture image-->
+            <img name="userimage" id="profileImage" accept="image/*"
+              class="img-account-profile rounded-circle mb-2 img-fluid" style="max-width: 150px;">
+            <!-- Profile picture help block-->
           </div>
+          
+          
           <div class="col-md-6">
             <div class="profile-head">
               
@@ -260,27 +260,31 @@ ikincisi boy-kilo-bio -->
     <p>&copy; 2023 Workfit Wellness. Tüm hakları saklıdır.</p>
   </footer>
   <!-- Diğer HTML dosyalarında bu satırı ekleyin -->
-  <script src="navbar-script.js"></script>
   <script>
-   document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
   fetch('/profile')
     .then(response => response.json())
     .then(user => {
-      // Elde edilen JSON verilerini kullanarak HTML içeriğini güncelle
+      // Update profile image
+      const profileImage = document.getElementById('profileImage');
+profileImage.src = user.userimage || 'default-image-url.jpg';
+
+
+      // Update user data
       document.getElementById('userName').textContent = user.name;
       document.getElementById('userEmail').textContent = user.email;
       document.getElementById('userGender').textContent = user.gender;
-
       document.getElementById('userHeight').textContent = user.height;
       document.getElementById('userWeight').textContent = user.weight;
       document.getElementById('userAge').textContent = user.age;
-
-      // Diğer bilgileri de aynı şekilde güncelleyin
+      // Add similar lines for other user data properties
     })
     .catch(error => console.error('Error fetching user profile:', error));
 });
 
   </script>
+    <script src="navbar-script.js"></script>
+
 </body>
 
 </html>

@@ -40,6 +40,11 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Dancing+Script:wght@500&family=Raleway:wght@300&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css"
+    />
+
     <style>
       body {
         margin: 0;
@@ -139,10 +144,13 @@
                 />
               </div>
               <div class="form-input">
-                <span><i class="fa fa-lock"></i></span>
+                <span class="toggle-password">
+                  <i class="fa fa-eye"></i>
+                </span>
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   placeholder="Password"
                   required
                 />
@@ -223,5 +231,22 @@
         </p>
       </footer>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var passwordInput = document.getElementById("password");
+        var togglePassword = document.querySelector(".toggle-password");
+
+        togglePassword.addEventListener("click", function () {
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePassword.innerHTML = '<i class="fa fa-eye-slash"></i>';
+          } else {
+            passwordInput.type = "password";
+            togglePassword.innerHTML = '<i class="fa fa-eye"></i>';
+          }
+        });
+      });
+    </script>
   </body>
 </html>

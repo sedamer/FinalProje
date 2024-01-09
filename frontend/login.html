@@ -88,19 +88,20 @@
                             <input type="text" name="name" placeholder="User Name" tabindex="10" required>
                         </div>
                         <div class="form-input">
-                            <span><i class="fa fa-lock"></i></span>
-                            <input type="password" name="password" placeholder="Password" required>
-                        </div>
+                            <span class="toggle-password">
+                              <i class="fa fa-eye"></i>
+                            </span>
+                            <input
+                              type="password"
+                              name="password"
+                              id="password"
+                              placeholder="Password"
+                              required
+                            />
+                          </div>
                         
                         <div class="row mb-2">
-                            <!--Remember Checkbox -->
-                            <div class="col-6 d-flex align-items-center">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cb1">
-                                    <label class="custom-control-label text-sm" for="cb1">Remember me
-                                    </label>
-                                </div>
-                            </div>
+                           
 
                             <!-- Login Button -->
                             <div class="col-12 px-0 text-right">
@@ -122,6 +123,26 @@
     <footer class="footer">
         <p>&copy; 2023 Workfit Wellness. Tüm hakları saklıdır.</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var passwordInput = document.getElementById("password");
+          var togglePassword = document.querySelector(".toggle-password");
+  
+          togglePassword.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+              passwordInput.type = "text";
+              togglePassword.innerHTML = '<i class="fa fa-eye-slash"></i>';
+            } else {
+              passwordInput.type = "password";
+              togglePassword.innerHTML = '<i class="fa fa-eye"></i>';
+            }
+          });
+        });
+
+
+
+        
+      </script>
 </body>
 
 </html>

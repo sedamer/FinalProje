@@ -129,6 +129,7 @@ app.get("/profile", async (req, res) => {
     if (user) {
       // JSON verilerini doğrudan gönder
       res.json({
+        userimage: user.userimage,
         name: user.name,
         email: user.email,
         gender: user.gender,
@@ -143,6 +144,53 @@ app.get("/profile", async (req, res) => {
   } catch (error) {
     console.error("Error fetching user profile:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// editProfile endpoint'ını güncelleyin
+app.post("/editProfile", async (req, res) => {
+  try {
+    const { name, username, email, height, weight, password, userimage } =
+      req.body;
+
+    // Kullanıcı adını currentUser'dan alın
+    const userName = currentUser ? currentUser.name : null;
+
+    // Kullanıcı adına göre veritabanından kullanıcıyı bul
+    const user = await UserModel.findOne({ name: userName });
+
+    if (user) {
+      // Değişiklikleri uygula
+      user.name = name || user.name;
+      user.username = username || user.username;
+      user.email = email || user.email;
+      user.height = height || user.height;
+      user.weight = weight || user.weight;
+      user.userimage = userimage !== undefined ? userimage : user.userimage;
+
+      // Yeni şifre varsa güncelle
+      if (password) {
+        user.password = await hashPass(password);
+      }
+
+      // Veritabanında güncelle
+      await user.save();
+
+      // Güncellenmiş kullanıcı bilgilerini JSON olarak yanıtla
+      res.json({
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        height: user.height,
+        weight: user.weight,
+        userimage: user.userimage,
+      });
+    } else {
+      res.status(404).json({ error: "Kullanıcı bulunamadı" });
+    }
+  } catch (error) {
+    console.error("Profil düzenleme hatası:", error);
+    res.status(500).json({ error: "İç Sunucu Hatası" });
   }
 });
 
