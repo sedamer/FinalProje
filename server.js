@@ -121,10 +121,10 @@ app.post("/logout", (req, res) => {
 app.get("/profile", async (req, res) => {
   try {
     // Kullanıcı adını currentUser'dan alın
-    const userName = currentUser ? currentUser.name : null;
+    const name = currentUser ? currentUser.name : null;
 
     // Kullanıcı adına göre veritabanından kullanıcıyı bul
-    const user = await UserModel.findOne({ name: userName });
+    const user = await UserModel.findOne({ name: name });
 
     if (user) {
       // JSON verilerini doğrudan gönder

@@ -204,7 +204,7 @@ ikincisi boy-kilo-bio -->
                     <label>Name</label>
                   </div>
                   <div class="col-md-6">
-                    <p><span id="userName"></span></p>
+                    <p><span id="name"></span></p>
                   </div>
                 </div>
                 <div class="row">
@@ -267,11 +267,11 @@ ikincisi boy-kilo-bio -->
     .then(user => {
       // Update profile image
       const profileImage = document.getElementById('profileImage');
-profileImage.src = user.userimage || 'default-image-url.jpg';
+profileImage.src = user.userimage;
 
 
       // Update user data
-      document.getElementById('userName').textContent = user.name;
+      document.getElementById('name').textContent = user.name;
       document.getElementById('userEmail').textContent = user.email;
       document.getElementById('userGender').textContent = user.gender;
       document.getElementById('userHeight').textContent = user.height;
