@@ -3,8 +3,9 @@ const { UserModel, NutritionModel } = require("./models/user");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const bcryptjs = require("bcryptjs");
-
 const multer = require("multer");
+
+const upload = multer({ dest: "frontend/" }); // Bu dizini ihtiyaca göre güncelleyin
 
 const path = require("path");
 const app = express();
@@ -148,7 +149,7 @@ app.get("/profile", async (req, res) => {
 });
 
 // editProfile endpoint'ını güncelleyin
-app.post("/editProfile", async (req, res) => {
+app.post("/editProfile", upload.single("userimage"), async (req, res) => {
   try {
     const { name, username, email, height, weight, password, userimage } =
       req.body;
