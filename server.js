@@ -15,6 +15,8 @@ app.use(express.static(path.join(__dirname, "frontend"))); // Bu satırı ekledi
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "frontend/img")));
+
 let currentUser = null;
 
 async function hashPass(password) {
@@ -80,8 +82,7 @@ app.post("/login", async (req, res) => {
   try {
     const check = await UserModel.findOne({ name: req.body.name });
     if (!check) {
-      res.send("Kullanıcı bulunamadı");
-      return;
+      return res.status(400).json({ error: "User not found" });
     }
 
     const passCheck = await compare(req.body.password, check.password);
@@ -95,7 +96,7 @@ app.post("/login", async (req, res) => {
       });
       res.sendFile(path.join(__dirname, "frontend", "home.html"));
     } else {
-      res.send("Yanlış girdiniz");
+      return res.status(400).json({ error: "Invalid password" });
     }
   } catch (error) {
     console.error("User login error:", error);
@@ -137,6 +138,7 @@ app.get("/profile", async (req, res) => {
         height: user.height,
         weight: user.weight,
         age: user.age,
+        userimage: user.userimage,
         // Diğer bilgileri de ekle
       });
     } else {
@@ -149,7 +151,7 @@ app.get("/profile", async (req, res) => {
 });
 
 // editProfile endpoint'ını güncelleyin
-app.post("/editProfile", upload.single("userimage"), async (req, res) => {
+app.post("/editProfile", async (req, res) => {
   try {
     const {
       name,
@@ -171,11 +173,6 @@ app.post("/editProfile", upload.single("userimage"), async (req, res) => {
 
     if (user) {
       // Check if old password matches
-      const isPasswordValid = await compare(oldPassword, user.password);
-      if (!isPasswordValid) {
-        return res.status(400).json({ error: "Invalid old password" });
-      }
-      // Değişiklikleri uygula
       user.name = name || user.name;
       user.username = username || user.username;
       user.email = email || user.email;
@@ -184,7 +181,18 @@ app.post("/editProfile", upload.single("userimage"), async (req, res) => {
       user.userimage = userimage !== undefined ? userimage : user.userimage;
 
       // Yeni şifre varsa güncelle
-      if (newPassword && confirmPassword && newPassword === confirmPassword) {
+      if (newPassword && confirmPassword) {
+        if (newPassword !== confirmPassword) {
+          return res
+            .status(400)
+            .json({ error: "New password and confirm password do not match" });
+        }
+
+        const isPasswordValid = await compare(oldPassword, user.password);
+        if (!isPasswordValid) {
+          return res.status(400).json({ error: "Invalid old password" });
+        }
+
         user.password = await hashPass(newPassword);
       }
 
@@ -208,34 +216,48 @@ app.post("/editProfile", upload.single("userimage"), async (req, res) => {
     res.status(500).json({ error: "İç Sunucu Hatası" });
   }
 });
-
 app.post("/addNutrition", async (req, res) => {
   try {
-    const { meal, food, calories } = req.body;
-    const nutritionData = new NutritionModel({ meal, food, calories });
+    const { meal, food, calories, protein, carbohydrate, fats } = req.body;
+    const nutritionData = new NutritionModel({
+      meal,
+      food,
+      calories,
+      protein,
+      carbohydrate,
+      fats,
+    });
+
     await nutritionData.save();
+
     res.status(201).send("Nutrition data added successfully.");
   } catch (error) {
     console.error("Error adding nutrition data:", error);
     res.status(500).send("Internal Server Error");
   }
 });
+app.get("/getNutritionDataByDate", async (req, res) => {
+  try {
+    // Kullanıcı adını currentUser'dan alın
+    const userName = currentUser ? currentUser.name : null;
 
-const nutritionData = new NutritionModel({
-  meal: "Sabah",
-  food: "Pilav",
-  calories: 500,
+    // Kullanıcı adına göre veritabanından kullanıcıyı bul
+    const user = await UserModel.findOne({ name: userName });
+
+    if (user) {
+      // Kullanıcının besin kayıtlarını çek
+      const nutritionData = await NutritionModel.find({ userName: userName });
+
+      // JSON verilerini doğrudan gönder
+      res.json(nutritionData);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching nutrition data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
-
-nutritionData
-  .save()
-  .then(() => {
-    console.log("Beslenme verisi başarıyla kaydedildi.");
-  })
-  .catch((error) => {
-    console.error("Hata:", error);
-  });
-
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

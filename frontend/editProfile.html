@@ -110,6 +110,9 @@
           <li class="nav-item">
             <a class="nav-link mx-2" href="vki.html">BMI</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="analiz.html">My Diary</a>
+          </li>
 
 
           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
@@ -230,12 +233,7 @@
                           </div>
                         </div>
                         <form method="post" enctype="multipart/form-data">
-                          <!-- Diğer input alanları burada yer alır -->
-                          <div class="mb-3">
-                            <label for="profileImage" class="form-label">Profile Image</label>
-                            <input type="file" class="form-control" id="profileImage" name="userimage">
-                          </div>
-                          <!-- Diğer input alanları burada yer alır -->
+                         
                           <div class="row">
                             <div class="col d-flex justify-content-end">
                               <button class="btn" type="button" onclick="saveChanges()" style="background-color: #FFA500;">Save Changes</button>
@@ -282,14 +280,6 @@ async function saveChanges() {
 
     const result = await response.json();
 
-    // Update profile image
-    const profileImage = document.getElementById('profileImage');
-    profileImage.src = `/uploads/${result.userimage}`;
-
-    // Wait for the image to load
-    await new Promise((resolve) => {
-      profileImage.onload = resolve;
-    });
 
     // Update other UI elements if needed
     updateInputValue('name', result.name);

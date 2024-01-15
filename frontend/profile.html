@@ -122,6 +122,9 @@
             <a class="nav-link mx-2" href="vki.html">BMI</a>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="analiz.html">My Diary</a>
+          </li>
 
           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
@@ -157,6 +160,7 @@ ikincisi boy-kilo-bio -->
           <div class="card-body text-center" id="uploadForm">
             <!-- Profile picture image-->
             <img id="profileImage" name="userimage" accept="image/*" class="img-account-profile rounded-circle mb-2 img-fluid" style="max-width: 150px;">
+
 
             <!-- Profile picture help block-->
           </div>
@@ -238,7 +242,11 @@ ikincisi boy-kilo-bio -->
                   </div>
                 </div>
               </div>
-
+    <div class="col-md-2">
+      <label for="userimage" class="profile-edit-btn btn btn-primary">Change Profile Picture</label>
+      <input type="file" id="userimage" name="userimage" style="display: none;"> <!-- file input ekledik -->
+    </div>
+  </div>
 
             </div>
           </div>
@@ -257,7 +265,7 @@ ikincisi boy-kilo-bio -->
     .then(user => {
       // Update profile image
       const profileImage = document.getElementById('profileImage');
-      profileImage.src = `/uploads/${user.userimage}`;
+      profileImage.src = `/frontend/img/${user.userimage}`;
 
       // Diğer kullanıcı verilerini güncelleyin
       document.getElementById('name').textContent = user.name;

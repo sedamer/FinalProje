@@ -1,4 +1,4 @@
-function calculateNutri(index) {
+async function calculateNutri(index) {
   var apiKey = "cc21719f62036fd3f120be18e2bce862"; // Replace with your Nutritionix API key
   var apiId = "38b6b0bc"; // Replace with your Nutritionix API ID
   var recipe = document.getElementById(`recipe${index}`).value;
@@ -11,7 +11,7 @@ function calculateNutri(index) {
 
   var totalCalories = 0;
 
-  exercises.forEach((exercise, i) => {
+  for (const [i, exercise] of exercises.entries()) {
     var requestOptions = {
       method: "POST",
       headers: {
@@ -24,53 +24,76 @@ function calculateNutri(index) {
       }),
     };
 
-    fetch(
-      "https://trackapi.nutritionix.com/v2/natural/nutrients",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(`API Response for Exercise ${i + 1}:`, data);
+    try {
+      const response = await fetch(
+        "https://trackapi.nutritionix.com/v2/natural/nutrients",
+        requestOptions
+      );
+      const data = await response.json();
 
-        if (data.foods && data.foods.length > 0) {
-          var calories = data.foods[0].nf_calories;
-          totalCalories += calories;
+      console.log(`API Response for Exercise ${i + 1}:`, data);
 
-          resultContainer.innerHTML += `
-            <table style="border: 1px solid black; width:100%;">
-              <tr>
-                <th>Quantity</th>
-                <th>Unit</th>
-                <th>Food</th>
-                <th>Calories</th>
-                <th>Protein(gr)</th>
-                <th>Carbohydrate(gr)</th>
-                <th>Fats(gr)</th>
-              </tr>
-              <tr>
-                <td>${data.foods[0].serving_qty}</td>
-                <td>${data.foods[0].serving_unit}</td>
-                <td>${data.foods[0].food_name}</td>
-                <td>${calories}</td>
-                <td>${data.foods[0].nf_protein}</td>
-                <td>${data.foods[0].nf_total_carbohydrate}</td>
-                <td>${data.foods[0].nf_total_fat}</td>
-              </tr>
-            </table>
-            <br>`;
-        } else {
-          resultContainer.innerHTML += `<p>No data available for Exercise ${
-            i + 1
-          }</p><br>`;
-        }
+      if (data.foods && data.foods.length > 0) {
+        var calories = data.foods[0].nf_calories;
+        totalCalories += calories;
 
-        // Display total calories when all exercises are processed
-        if (i === exercises.length - 1) {
-          resultContainer.innerHTML += `<p>Total Calories Consumed: ${totalCalories}</p>`;
-        }
-      })
-      .catch((error) => {
-        console.error(`API Error for Exercise ${i + 1}:`, error.message);
-      });
-  });
+        // Sunucuya göndermek için kullanılacak veri
+        const nutritionData = {
+          meal: data.foods[0].serving_qty, // İsteğe bağlı olarak değiştirilebilir
+          food: data.foods[0].food_name,
+          calories: calories,
+          protein: data.foods[0].nf_protein || 0,
+          carbohydrate: data.foods[0].nf_total_carbohydrate || 0,
+          fats: data.foods[0].nf_total_fat || 0,
+        };
+
+        // Sunucuya POST isteği yap
+        const saveRequestOptions = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(nutritionData),
+        };
+
+        const saveResponse = await fetch("/addNutrition", saveRequestOptions);
+        const saveResult = await saveResponse.text();
+
+        console.log("Nutrition data added:", saveResult);
+        resultContainer.innerHTML += `
+          <table style="border: 1px solid black; width:100%;">
+            <tr>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>Food</th>
+              <th>Calories</th>
+              <th>Protein(gr)</th>
+              <th>Carbohydrate(gr)</th>
+              <th>Fats(gr)</th>
+            </tr>
+            <tr>
+              <td>${data.foods[0].serving_qty}</td>
+              <td>${data.foods[0].serving_unit}</td>
+              <td>${data.foods[0].food_name}</td>
+              <td>${calories}</td>
+              <td>${data.foods[0].nf_protein}</td>
+              <td>${data.foods[0].nf_total_carbohydrate}</td>
+              <td>${data.foods[0].nf_total_fat}</td>
+            </tr>
+          </table>
+          <br>`;
+      } else {
+        resultContainer.innerHTML += `<p>No data available for Exercise ${
+          i + 1
+        }</p><br>`;
+      }
+
+      // Display total calories when all exercises are processed
+      if (i === exercises.length - 1) {
+        resultContainer.innerHTML += `<p>Total Calories Consumed: ${totalCalories}</p>`;
+      }
+    } catch (error) {
+      console.error(`API Error for Exercise ${i + 1}:`, error.message);
+    }
+  }
 }

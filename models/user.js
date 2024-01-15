@@ -58,18 +58,34 @@ const userSchema = new mongoose.Schema({
 });
 
 const nutritionSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserModel", // Kullanıcı modelinin adını belirtin
+    required: false, // user alanını zorunlu olmaktan çıkartır
+  },
   date: {
     type: Date,
     default: Date.now,
   },
   meal: {
     type: String,
+    required: true,
   },
   food: {
     type: String,
+    required: true,
   },
-
   calories: {
+    type: Number,
+    required: true,
+  },
+  protein: {
+    type: Number,
+  },
+  carbohydrate: {
+    type: Number,
+  },
+  fats: {
     type: Number,
   },
 });
