@@ -151,8 +151,17 @@ app.get("/profile", async (req, res) => {
 // editProfile endpoint'ını güncelleyin
 app.post("/editProfile", upload.single("userimage"), async (req, res) => {
   try {
-    const { name, username, email, height, weight, password, userimage } =
-      req.body;
+    const {
+      name,
+      username,
+      email,
+      height,
+      weight,
+      oldPassword,
+      newPassword,
+      confirmPassword,
+      userimage,
+    } = req.body;
 
     // Kullanıcı adını currentUser'dan alın
     const userName = currentUser ? currentUser.name : null;
@@ -161,6 +170,11 @@ app.post("/editProfile", upload.single("userimage"), async (req, res) => {
     const user = await UserModel.findOne({ name: userName });
 
     if (user) {
+      // Check if old password matches
+      const isPasswordValid = await compare(oldPassword, user.password);
+      if (!isPasswordValid) {
+        return res.status(400).json({ error: "Invalid old password" });
+      }
       // Değişiklikleri uygula
       user.name = name || user.name;
       user.username = username || user.username;
@@ -170,8 +184,8 @@ app.post("/editProfile", upload.single("userimage"), async (req, res) => {
       user.userimage = userimage !== undefined ? userimage : user.userimage;
 
       // Yeni şifre varsa güncelle
-      if (password) {
-        user.password = await hashPass(password);
+      if (newPassword && confirmPassword && newPassword === confirmPassword) {
+        user.password = await hashPass(newPassword);
       }
 
       // Veritabanında güncelle

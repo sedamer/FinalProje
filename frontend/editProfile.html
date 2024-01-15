@@ -209,22 +209,22 @@
                                 
                                 </span>
                                 <i class="fas fa-eye"></i>
-                                <input    type="password" name="password" id="password1" placeholder="Password" required
-                                  class="form-control" id="exampleInputPassword1">
+                                <input type="password" name="oldPassword" id="password1" placeholder="Old Password" required class="form-control" id="exampleInputPassword1">
+
                               </div>
                               <div class="col-md-6">
                                 <label for="exampleInputPassword2" class="form-label">New password</label>
                                   <i class="fas fa-eye"></i>
                                 </span>
-                                <input type="password" name="password" id="password2" placeholder="Password" required
-                                  class="form-control" id="exampleInputPassword2">
+                                <input type="password" name="newPassword" id="password2" placeholder="New Password" required class="form-control" id="exampleInputPassword2">
+
                               </div>
                               <div class="col-md-6">
                                 <label for="exampleInputPassword3" class="form-label">Confirm Password</label>
                                   <i class="fas fa-eye"></i>
                                 </span>
-                                <input type="password" name="password" id="password3" placeholder="Password" required
-                                  class="form-control" id="exampleInputPassword3">
+                                <input type="password" name="confirmPassword" id="password3" placeholder="Confirm Password" required class="form-control" id="exampleInputPassword3">
+
                               </div>
                             </div>
                           </div>
@@ -263,14 +263,16 @@ async function saveChanges() {
     const email = document.querySelector('input[name="email"]').value;
     const height = document.querySelector('input[name="height"]').value;
     const weight = document.querySelector('input[name="weight"]').value;
-    const password = document.querySelector('input[name="password"]').value;
+    const oldPassword = document.querySelector('input[name="oldPassword"]').value;
+    const newPassword = document.querySelector('input[name="newPassword"]').value;
+    const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
 
     const response = await fetch("/editProfile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, height, weight, password }),
+      body: JSON.stringify({ name, email, height, weight,oldPassword, newPassword, confirmPassword }),
     });
 
     if (!response.ok) {
