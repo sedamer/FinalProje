@@ -1,5 +1,5 @@
 const express = require("express");
-const { UserModel, NutritionModel } = require("./models/user");
+const { UserModel, NutritionModel, WorkoutModel } = require("./models/user");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const bcryptjs = require("bcryptjs");
@@ -258,6 +258,39 @@ app.get("/getNutritionDataByDate", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+app.post("/addWorkout", async (req, res) => {
+  try {
+    const { exerciseName, caloriesBurned, durationMinutes } = req.body;
+
+    // Kullanıcı adını currentUser'dan alın
+    const userName = currentUser ? currentUser.name : null;
+
+    // Kullanıcı adına göre veritabanından kullanıcıyı bul
+    const user = await UserModel.findOne({ name: userName });
+
+    if (user) {
+      // Egzersiz verisini oluşturun, bu noktada user'ın _id'sini kullanın
+      const workoutData = {
+        user: user._id, // Bu kısmı değiştirin
+        exerciseName,
+        caloriesBurned,
+        durationMinutes,
+      };
+
+      // Veritabanına kaydetme işlemi
+      const workout = new WorkoutModel(workoutData);
+      await workout.save();
+
+      res.status(201).send("Workout data added successfully.");
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error adding workout data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

@@ -89,8 +89,32 @@ const nutritionSchema = new mongoose.Schema({
     type: Number,
   },
 });
+const workoutSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserModel", // Kullanıcı modelinin adını belirtin
+    required: false, // user alanını zorunlu olmaktan çıkartır
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  exerciseName: {
+    type: String,
+    required: true,
+  },
+  caloriesBurned: {
+    type: Number,
+    required: true,
+  },
+  durationMinutes: {
+    type: Number,
+    required: true,
+  },
+});
 
 const UserModel = mongoose.model("user", userSchema);
 const NutritionModel = mongoose.model("nutrition", nutritionSchema);
+const WorkoutModel = mongoose.model("Workout", workoutSchema);
 
-module.exports = { UserModel, NutritionModel };
+module.exports = { UserModel, NutritionModel, WorkoutModel };
