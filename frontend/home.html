@@ -40,15 +40,12 @@
       font-family: "Dancing Script", cursive;
       font-family: "Raleway", sans-serif;
       margin-bottom: 30px;
-      /* Footer'ın içeriği örtmemesi için sayfa altına bir boşluk bırakın */
 
     }
 
     .content {
-      /* İçerik alanını tanımlayın ve en az bir sayfa yüksekliği olacak şekilde ayarlayın */
       min-height: 100vh;
       padding-bottom: 50px;
-      /* Footer'ın içeriği örtmemesi için sayfa altına bir boşluk bırakın */
     }
 
     .infinity-container {
@@ -136,23 +133,16 @@
     .card:hover {
       border-color: #ffa500;
       box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+      text-decoration: none;
+
     }
 
     .card:hover .card-button {
       transform: translate(-50%, 50%);
       opacity: 1;
       font-size: large;
+      text-decoration: none;
     }
-
-    .footer {
-      color: white;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      padding: 5px;
-      text-align: center;
-    }
-
     .iletisim {
       margin-left: 15%;
 
@@ -164,7 +154,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-light" style="background-color: transparent;">
+  <nav class="navbar navbar-expand-md navbar-light" style="background-color: wheat;">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.html" style="font-size: 25px;">WorkFit Wellness</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -233,7 +223,7 @@
     </div>
   </div>
   <div class="carousel-item">
-    <img src="./img/spor.jpg"  class="d-block" style="width:100%">
+    <img src="./img/spor2.jpg"  class="d-block" style="width:100%">
     <div class="carousel-caption">
       <h3>Efficient Exercise Calorie Monitoring</h3>
       <p>Achieve your fitness goals with real-time calorie burn insights
@@ -241,7 +231,7 @@
     </div> 
   </div>
   <div class="carousel-item">
-    <img src="./img/nutri.jpg"  class="d-block" style="width:100%">
+    <img src="./img/nutri7.jpg"  class="d-block" style="width:100%">
     <div class="carousel-caption">
       <h3>Nutrition Tracking Made Easy!</h3>
       <p> Effortlessly manage your nutritional intake on our platform for
@@ -296,21 +286,20 @@
 
   </div>
   </div>
+  <br>
   <div  class="container"  class="iletisim">
     <a href="mailto:wfitwellness@gmail.com">
-      <img src="./img/gmail-icon-logo-svgrepo-com.svg" style="width: 4%;">
+      <img src="./img/gmail.svg" style="width: 5%;">
     </a>
     <a href="https://wa.me/05442476459">
-      <img src="./img/whatsapp-icon-logo-svgrepo-com.svg" style="width: 4%;">
+      <img src="./img/what.svg" style="width: 5%;">
     </a>
     <a href="https://www.instagram.com/sedaamercan1/" target="_blank">
-      <img src="./img/instagram-1-svgrepo-com.svg" style="width: 4%;">
+      <img src="./img/ins.svg" style="width: 5%;">
     </a>
 
   </div>
-  <footer class="footer">
-    <p>&copy; 2023 Workfit Wellness. Tüm hakları saklıdır.</p>
-  </footer>
+ 
   <script src="navbar-script.js"></script>
 
 </body>

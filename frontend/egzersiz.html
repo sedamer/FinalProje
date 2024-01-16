@@ -23,13 +23,14 @@
       padding: 0;
       background-size: cover;
       background: url("./img/wwww.jpg");
+      font-family: "Cormorant Garamond", serif;
+      font-family: "Dancing Script", cursive;
+      font-family: "Raleway", sans-serif;
     }
 
     .navbar-brand,
     .nav-item {
-      font-family: "Cormorant Garamond", serif;
-      font-family: "Dancing Script", cursive;
-      font-family: "Raleway", sans-serif;
+
       color: #000000;
     }
 
@@ -45,7 +46,6 @@
     .navbar-brand:hover,
     .navbar-nav a:hover {
       transform: scale(1.1);
-      /* Büyüme faktörünü ayarlayabilirsiniz */
       color: black;
     }
 
@@ -54,6 +54,7 @@
       text-align: center;
       margin-left: 45%;
     }
+ 
   </style>
 </head>
 
@@ -117,7 +118,8 @@
         </div>
 
         <div class="form-group mt-3">
-          <button type="button" class="btn btn-primary" onclick="calculateCalories()">Calculate Calories</button>
+          <button style="      background-color: #ffa500;
+          "  type="button" class="btn" onclick="calculateCalories()">Calculate Calories</button>
         </div>
       </form>
 
@@ -130,80 +132,8 @@
   </div>
   
  
-
-<!-- calculateCalories.js dosyasını ekleyin -->
 <script src="egzersiz.js"></script>
-  <!-- <script>
-    function getExerciseData() {
-      const exerciseType = prompt('Enter exercise type:');
-      const exerciseDuration = prompt('Enter exercise duration (minutes):');
 
-      fetch(`/getExerciseData?query=${exerciseType}&duration_min=${exerciseDuration}`)
-        .then(response => response.json())
-        .then(data => {
-          displayResult(data);
-        })
-        .catch(error => {
-          console.error('Error fetching exercise data:', error);
-        });
-    }
-
-    function displayResult(data) {
-      const resultContainer = document.getElementById('resultContainer');
-      resultContainer.innerHTML = JSON.stringify(data, null, 2);
-    }
-  </script> -->
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="form-floating">
-          <textarea class="form-control" id="floatingTextArea2" cols="5" rows="5"></textarea>
-          <label for="floatingTextArea2">Search Exercise</label>
-        </div>
-        <div>
-          <button id="showExer" class="btn mt-4" style="background-color: #ffa500;">Calculate exercise</button>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card" id="cardTablo" style="width: 18rem;display: none;">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-          </div>
-        </div>
-  
-        <div class="col-sm-6">
-          <table class="table" id="tabloexer" style="display: none;">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#lla</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row"></th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    document.getElementById('showExer').addEventListener("click", function () {
-      document.getElementById('cardTablo').style.display = "block";
-    });
-
-    document.getElementById('showExer').addEventListener("click", function () {
-      document.getElementById('tabloexer').style.display = "block";
-    });
-  </script> -->
-    <!-- Diğer HTML dosyalarında bu satırı ekleyin -->
 <script src="navbar-script.js"></script>
 </body>
 

@@ -22,7 +22,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: url("./img/bakalım3.jpg") center no-repeat;
+      background: url("./img/alarm-clock-towel-dumbbells\ \(2\).jpg") center no-repeat;
       background-size: cover;
       font-family: "Cormorant Garamond", serif;
       font-family: "Dancing Script", cursive;
@@ -44,9 +44,7 @@
 
     .navbar-brand,
     .nav-item {
-      font-family: 'Cormorant Garamond', serif;
-      font-family: 'Dancing Script', cursive;
-      font-family: 'Raleway', sans-serif;
+
       color: #000000;
 
     }
@@ -63,7 +61,6 @@
     .navbar-brand:hover,
     .navbar-nav a:hover {
       transform: scale(1.1);
-      /* Büyüme faktörünü ayarlayabilirsiniz */
       color: black;
     }
 
@@ -73,7 +70,9 @@
       margin-top: 3%;
       margin-bottom: 3%;
       border-radius: 0.5rem;
-      background: #fff;
+      background-color: rgba(255, 255, 255, 0.5);
+      filter: blur(0px);
+      z-index: 1;
     }
 
     .profile-img {
@@ -141,7 +140,7 @@
             </ul>
           </div>
 
-  
+
       </div>
     </div>
 
@@ -150,45 +149,25 @@
 
   <div class="infinity-container">
     <a class="navbar-brand" href="login.html" style="font-size: 25px; margin-right: 23%; padding-bottom: 10%"></a>
-
-    <!-- iki tane container olsun ilk fotograf -isim soyisim
-ikincisi boy-kilo-bio -->
-
     <div class="container profile">
       <form method="post">
         <div class="row">
-          <div class="card-body text-center" id="uploadForm">
-            <!-- Profile picture image-->
-            <img id="profileImage" name="userimage" accept="image/*" class="img-account-profile rounded-circle mb-2 img-fluid" style="max-width: 150px;">
-
-
-            <!-- Profile picture help block-->
-          </div>
-          
-          
           <div class="col-md-6">
             <div class="profile-head">
-              
-                <!-- <h5><span id="userGender"></span></p> -->
-              </h5>
-
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="./profile.html" role="tab"
-                    aria-controls="home" aria-selected="true">About</a>
+                    aria-controls="home" aria-selected="true">About me</a>
                 </li>
-
               </ul>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-6 text-end"> 
             <a href="./editProfile.html" style="text-decoration: none; " class="profile-edit-btn">Edit Profile</a>
-
           </div>
         </div>
         <div class="row">
           <div class="col-md-4">
-            <!-- bi şeyler eklersin -->
           </div>
           <div class="col-md-4">
             <div class="tab-content profile-tab" id="myTabContent">
@@ -242,45 +221,37 @@ ikincisi boy-kilo-bio -->
                   </div>
                 </div>
               </div>
-    <!-- <div class="col-md-2">
-      <label for="userimage" class="profile-edit-btn btn btn-primary">Change Profile Picture</label>
-      <input type="file" id="userimage" name="userimage" style="display: none;"> <!-- file input ekledik -->
-    <!-- </div>  -->
-  </div>
-
             </div>
+          </div>
           </div>
         </div>
     </div>
-    </form>
+  </div>
+  </form>
   </div>
   <footer class="footer">
     <p>&copy; 2023 Workfit Wellness. Tüm hakları saklıdır.</p>
   </footer>
-  <!-- Diğer HTML dosyalarında bu satırı ekleyin -->
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-  fetch('/profile')
-    .then(response => response.json())
-    .then(user => {
-      // Update profile image
-      const profileImage = document.getElementById('profileImage');
-      profileImage.src = `/frontend/img/${user.userimage}`;
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/profile')
+        .then(response => response.json())
+        .then(user => {
 
-      // Diğer kullanıcı verilerini güncelleyin
-      document.getElementById('name').textContent = user.name;
-      document.getElementById('userEmail').textContent = user.email;
-      document.getElementById('userGender').textContent = user.gender;
-      document.getElementById('userHeight').textContent = user.height;
-      document.getElementById('userWeight').textContent = user.weight;
-      document.getElementById('userAge').textContent = user.age;
-    })
-    .catch(error => console.error('Error fetching user profile:', error));
-});
+          // Diğer kullanıcı verilerini güncelleyin
+          document.getElementById('name').textContent = user.name;
+          document.getElementById('userEmail').textContent = user.email;
+          document.getElementById('userGender').textContent = user.gender;
+          document.getElementById('userHeight').textContent = user.height;
+          document.getElementById('userWeight').textContent = user.weight;
+          document.getElementById('userAge').textContent = user.age;
+        })
+        .catch(error => console.error('Error fetching user profile:', error));
+    });
 
 
   </script>
-    <script src="navbar-script.js"></script>
+  <script src="navbar-script.js"></script>
 
 </body>
 
