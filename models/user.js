@@ -58,16 +58,15 @@ const userSchema = new mongoose.Schema({
 });
 
 const nutritionSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "UserModel", // Kullanıcı modelinin adını belirtin
-    required: false, // user alanını zorunlu olmaktan çıkartır
+  userName: {
+    type: String,
+    required: true,
   },
   date: {
     type: Date,
     default: Date.now,
   },
-  meal: {
+  quantity: {
     type: String,
     required: true,
   },
@@ -90,10 +89,9 @@ const nutritionSchema = new mongoose.Schema({
   },
 });
 const workoutSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "UserModel", // Kullanıcı modelinin adını belirtin
-    required: false, // user alanını zorunlu olmaktan çıkartır
+  userName: {
+    type: String,
+    required: true,
   },
   date: {
     type: Date,

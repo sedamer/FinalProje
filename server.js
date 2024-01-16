@@ -218,24 +218,36 @@ app.post("/editProfile", async (req, res) => {
 });
 app.post("/addNutrition", async (req, res) => {
   try {
-    const { meal, food, calories, protein, carbohydrate, fats } = req.body;
-    const nutritionData = new NutritionModel({
-      meal,
-      food,
-      calories,
-      protein,
-      carbohydrate,
-      fats,
-    });
+    const { quantity, food, calories, protein, carbohydrate, fats } = req.body;
 
-    await nutritionData.save();
+    // Kullanıcı adını currentUser'dan alın
+    const userName = currentUser ? currentUser.name : null;
 
-    res.status(201).send("Nutrition data added successfully.");
+    if (userName) {
+      // Beslenme verisini oluşturun
+      const nutritionData = new NutritionModel({
+        userName, // Kullanıcının adını ekle
+        quantity,
+        food,
+        calories,
+        protein,
+        carbohydrate,
+        fats,
+      });
+
+      // Veritabanına kaydetme işlemi
+      await nutritionData.save();
+
+      res.status(201).send("Nutrition data added successfully.");
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
   } catch (error) {
     console.error("Error adding nutrition data:", error);
     res.status(500).send("Internal Server Error");
   }
 });
+
 app.get("/getNutritionDataByDate", async (req, res) => {
   try {
     // Kullanıcı adını currentUser'dan alın
@@ -246,7 +258,7 @@ app.get("/getNutritionDataByDate", async (req, res) => {
 
     if (user) {
       // Kullanıcının besin kayıtlarını çek
-      const nutritionData = await NutritionModel.find({ userName: userName });
+      const nutritionData = await NutritionModel.find({ user: user._id }); // _id üzerinden filtrele
 
       // JSON verilerini doğrudan gönder
       res.json(nutritionData);
@@ -258,20 +270,39 @@ app.get("/getNutritionDataByDate", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+// Add this route after your existing routes
+app.get("/getNutritionDataByUser", async (req, res) => {
+  try {
+    const userName = req.query.userName;
+
+    // Find the user by name
+    const user = await UserModel.findOne({ name: userName });
+
+    if (user) {
+      // Fetch nutrition data for the user
+      const nutritionData = await NutritionModel.find({ user: user._id });
+
+      // Return the nutrition data as JSON
+      res.json(nutritionData);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching nutrition data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.post("/addWorkout", async (req, res) => {
   try {
     const { exerciseName, caloriesBurned, durationMinutes } = req.body;
 
-    // Kullanıcı adını currentUser'dan alın
     const userName = currentUser ? currentUser.name : null;
 
-    // Kullanıcı adına göre veritabanından kullanıcıyı bul
-    const user = await UserModel.findOne({ name: userName });
-
-    if (user) {
+    if (userName) {
       // Egzersiz verisini oluşturun, bu noktada user'ın _id'sini kullanın
       const workoutData = {
-        user: user._id, // Bu kısmı değiştirin
+        userName, // Kullanıcının adını ekle
         exerciseName,
         caloriesBurned,
         durationMinutes,

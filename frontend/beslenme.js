@@ -39,7 +39,7 @@ async function calculateNutri(index) {
 
         // Sunucuya göndermek için kullanılacak veri
         const nutritionData = {
-          meal: data.foods[0].serving_qty, // İsteğe bağlı olarak değiştirilebilir
+          quantity: data.foods[0].serving_qty, // İsteğe bağlı olarak değiştirilebilir
           food: data.foods[0].food_name,
           calories: calories,
           protein: data.foods[0].nf_protein || 0,

@@ -102,51 +102,54 @@
     </div>
 
   </nav>
+  <div id="savedNutritionContainer"></div>
 
+  <script>
+  async function fetchAndDisplayNutritionData() {
+  try {
+    // Fetch the current user's name
+    const responseUser = await fetch("/get-current-user");
+    const currentUser = await responseUser.json();
 
-  <div id="nutritionDataContainer"></div>
+    // Fetch the nutrition data for the current user
+    const response = await fetch(`/getNutritionDataByUser?userName=${currentUser.name}`);
+    const nutritionData = await response.json();
 
-  <script>// analiz.js
-  document.addEventListener('DOMContentLoaded', () => {
-  // Besin kayıtlarını almak için
-  fetch('/getNutritionDataByDate')
-    .then(response => response.json())
-    .then(nutritionData => {
-      console.log("Fetched Nutrition Data:", nutritionData);
-      const nutritionDataContainer = document.getElementById('nutritionDataContainer');
-      nutritionDataContainer.innerHTML = createTableHTML(nutritionData);
-    })
-    .catch(error => console.error('Error:', error));
+    // Assuming you have an HTML element with id 'savedNutritionContainer'
+    const savedNutritionContainer = document.getElementById("savedNutritionContainer");
 
-  function createTableHTML(data) {
-    console.log("Create Table Data:", data); // Bu satırı ekleyin
+    // Clear existing content
+    savedNutritionContainer.innerHTML = "";
 
-        return `
-          <table border="1">
-            <tr>
-              <th>Meal</th>
-              <th>Food</th>
-              <th>Calories</th>
-              <th>Protein</th>
-              <th>Carbohydrate</th>
-              <th>Fats</th>
-            </tr>
-            ${data.map(item => `
-              <tr>
-                <td>${item.meal}</td>
-                <td>${item.food}</td>
-                <td>${item.calories}</td>
-                <td>${item.protein}</td>
-                <td>${item.carbohydrate}</td>
-                <td>${item.fats}</td>
-              </tr>
-            `).join('')}
-          </table>
-        `;
-      }
+    nutritionData.forEach((data, index) => {
+      savedNutritionContainer.innerHTML += `
+        <table style="border: 1px solid black; width:100%;">
+          <tr>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Food</th>
+            <th>Calories</th>
+            <th>Protein(gr)</th>
+            <th>Carbohydrate(gr)</th>
+            <th>Fats(gr)</th>
+          </tr>
+          <tr>
+            <td>${data.meal}</td>
+            <td>${data.food}</td>
+            <td>${data.calories}</td>
+            <td>${data.protein}</td>
+            <td>${data.carbohydrate}</td>
+            <td>${data.fats}</td>
+          </tr>
+        </table>
+        <br>`;
     });
-    </script>
+  } catch (error) {
+    console.error("Error fetching nutrition data:", error);
+  }
+}
 
+  </script>
   <script src="navbar-script.js"></script>
 </body>
 </html>
