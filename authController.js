@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 var mailOptions = {
   from: "wfitwellness@gmail.com",
   to: "mrcnsedaa@gmail.com",
-  subject: "Onaylamak için linke tıklayın",
+  subject: "selam sedacım",
   text: "That was easy!",
 };
 

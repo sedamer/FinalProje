@@ -20,16 +20,17 @@
 
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
     crossorigin="anonymous" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
+    
   <style>
     body {
       margin: 0;
@@ -39,22 +40,12 @@
       font-family: "Cormorant Garamond", serif;
       font-family: "Dancing Script", cursive;
       font-family: "Raleway", sans-serif;
-      margin-bottom: 30px;
+      /* margin-bottom: 30px; */
 
-    }
-
-    .content {
-      min-height: 100vh;
-      padding-bottom: 50px;
-    }
-
-    .infinity-container {
-      position: relative;
-      min-height: 100vh;
     }
     .navbar-brand,
     .nav-item {
-     
+
       color: #000000;
     }
 
@@ -143,28 +134,27 @@
       font-size: large;
       text-decoration: none;
     }
+
     .iletisim {
       margin-left: 15%;
 
-    }
-    #kiz{
-      background-color: transparent;
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-light" style="background-color: wheat;">
+  <nav class="navbar navbar-expand-md navbar-light" style="background-color: transparent;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="home.html" style="font-size: 25px;">WorkFit Wellness</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="home.html" style="font-size: 25px;">WorkFit Wellness</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-
-        <ul class="navbar-nav ms-auto ">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link mx-2 active" aria-current="page" href="home.html">Home</a>
           </li>
@@ -183,22 +173,21 @@
           <li class="nav-item">
             <a class="nav-link mx-2" href="analiz.html">My Diary</a>
           </li>
+          <li class="nav-item dropdown">
+            <button id="userName" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 
-          
-         
-          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <button id="userName" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" style="background-color: lightpink; border-color: aliceblue;">
-                  <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                  <li><a class="dropdown-item" href="editProfile.html">Edit Profile</a></li>
-                  <li><a class="dropdown-item"  id="logoutLink" href="login.html">Log Out</a></li>
-                </ul>
-              </li>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink"
+            style="background-color:whitesmoke; border-color: aliceblue;">
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+              <li><a class="dropdown-item" href="editProfile.html">Edit Profile</a></li>
+              <li><a class="dropdown-item" id="logoutLink" href="login.html">Log Out</a></li>
             </ul>
-          </div>
+          </li>
+
+
+
+        </ul>
       </div>
     </div>
 
@@ -212,82 +201,82 @@
       <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
       <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
     </div>
- <!-- The slideshow/carousel -->
- <div class="carousel-inner">
-  <div class="carousel-item active">
-    <img src="./img/sonnü.jpg"  class="d-block" style="width:100%">
-    <div class="carousel-caption">
-      <h3>Healthier Living with Quick Recipe Search</h3>
-      <p>Discover and enjoy health-conscious recipes tailored to your
-        nutritional needs</p>
-    </div>
-  </div>
-  <div class="carousel-item">
-    <img src="./img/spor2.jpg"  class="d-block" style="width:100%">
-    <div class="carousel-caption">
-      <h3>Efficient Exercise Calorie Monitoring</h3>
-      <p>Achieve your fitness goals with real-time calorie burn insights
-        during your workouts</p>
-    </div> 
-  </div>
-  <div class="carousel-item">
-    <img src="./img/nutri7.jpg"  class="d-block" style="width:100%">
-    <div class="carousel-caption">
-      <h3>Nutrition Tracking Made Easy!</h3>
-      <p> Effortlessly manage your nutritional intake on our platform for
-        a healthier lifestyle</p>
-    </div>  
-  </div>
-</div>
- <!-- Left and right controls/icons -->
- <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-  <span class="carousel-control-prev-icon"></span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-  <span class="carousel-control-next-icon"></span>
-</button>
-</div>
-
-     
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card" style="width: 100%; ">
-            <div class="card-body">
-              <h3 style="font-style: italic; font-size: 24px;">Nutrition</h3>
-              <p style="padding: 12%;" >Discover balanced choices for a healthier you.</p>
-            </div>
-            <a href="./beslenme.html" class="card-button">More info</a>
-          </div>
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="./img/sonnü.jpg" class="d-block" style="width:100%">
+        <div class="carousel-caption">
+          <h3>Healthier Living with Quick Recipe Search</h3>
+          <p>Discover and enjoy health-conscious recipes tailored to your
+            nutritional needs</p>
         </div>
-
-        <div class="col-md-4">
-          <div class="card" style="width: 100%; ">
-            <div class="card-body">
-              <h3 style="font-style: italic; font-size: 24px;">Workout</h3>
-              <p style="padding: 12%;">Achieve your fitness goals with inspiring routines.</p>
-            </div>
-            <a href="./egzersiz.html" class="card-button">More info</a>
-          </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./img/spor2.jpg" class="d-block" style="width:100%">
+        <div class="carousel-caption">
+          <h3>Efficient Exercise Calorie Monitoring</h3>
+          <p>Achieve your fitness goals with real-time calorie burn insights
+            during your workouts</p>
         </div>
-
-        <div class="col-md-4">
-          <div class="card" style="width: 100%; ">
-            <div class="card-body">
-              <h3 style="font-style: italic; font-size: 24px;">Recipe</h3>
-              <p style="padding: 12%;"> Delight in delicious and nutritious culinary creations.</p>
-            </div>
-            <a href="./recipe.html" class="card-button">More info</a>
-          </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./img/nutri7.jpg" class="d-block" style="width:100%">
+        <div class="carousel-caption">
+          <h3>Nutrition Tracking Made Easy!</h3>
+          <p> Effortlessly manage your nutritional intake on our platform for
+            a healthier lifestyle</p>
         </div>
       </div>
     </div>
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card" style="width: 100%; ">
+          <div class="card-body">
+            <h3 style="font-style: italic; font-size: 24px;">Nutrition</h3>
+            <p style="padding: 12%;">Discover balanced choices for a healthier you.</p>
+          </div>
+          <a href="./beslenme.html" class="card-button">More info</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card" style="width: 100%; ">
+          <div class="card-body">
+            <h3 style="font-style: italic; font-size: 24px;">Workout</h3>
+            <p style="padding: 12%;">Achieve your fitness goals with inspiring routines.</p>
+          </div>
+          <a href="./egzersiz.html" class="card-button">More info</a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card" style="width: 100%; ">
+          <div class="card-body">
+            <h3 style="font-style: italic; font-size: 24px;">Recipe</h3>
+            <p style="padding: 12%;"> Delight in delicious and nutritious culinary creations.</p>
+          </div>
+          <a href="./recipe.html" class="card-button">More info</a>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
   </div>
   </div>
   <br>
-  <div  class="container"  class="iletisim">
+  <div class="container" class="iletisim">
     <a href="mailto:wfitwellness@gmail.com">
       <img src="./img/gmail.svg" style="width: 5%;">
     </a>
@@ -299,7 +288,7 @@
     </a>
 
   </div>
- 
+
   <script src="navbar-script.js"></script>
 
 </body>

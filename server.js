@@ -235,6 +235,9 @@ app.post("/addNutrition", async (req, res) => {
         fats,
       });
 
+      console.log("Received Nutrition Data:", nutritionData); // Log the received data
+      nutritionData.date = new Date();
+
       // Veritabanına kaydetme işlemi
       await nutritionData.save();
 
@@ -258,7 +261,7 @@ app.get("/getNutritionDataByDate", async (req, res) => {
 
     if (user) {
       // Kullanıcının besin kayıtlarını çek
-      const nutritionData = await NutritionModel.find({ user: user._id }); // _id üzerinden filtrele
+      const nutritionData = await NutritionModel.find({ user: user.name }); // _id üzerinden filtrele
 
       // JSON verilerini doğrudan gönder
       res.json(nutritionData);
@@ -280,7 +283,7 @@ app.get("/getNutritionDataByUser", async (req, res) => {
 
     if (user) {
       // Fetch nutrition data for the user
-      const nutritionData = await NutritionModel.find({ user: user._id });
+      const nutritionData = await NutritionModel.find({ userName: user.name });
 
       // Return the nutrition data as JSON
       res.json(nutritionData);
@@ -319,6 +322,64 @@ app.post("/addWorkout", async (req, res) => {
   } catch (error) {
     console.error("Error adding workout data:", error);
     res.status(500).send("Internal Server Error");
+  }
+});
+// Add this route after your existing routes
+app.get("/getWorkoutDataByUser", async (req, res) => {
+  try {
+    const userName = req.query.userName;
+
+    // Find the user by name
+    const user = await UserModel.findOne({ name: userName });
+
+    if (user) {
+      // Fetch workout data for the user
+      const workoutData = await WorkoutModel.find({ userName: user.name });
+
+      // Return the workout data as JSON
+      res.json(workoutData);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching workout data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+// Analiz sayfasına toplam kalorileri gönderen endpoint
+app.get("/getTotalCaloriesByUser", async (req, res) => {
+  try {
+    const userName = req.query.userName;
+
+    // Kullanıcı adına göre veritabanından kullanıcıyı bul
+    const user = await UserModel.findOne({ name: userName });
+
+    if (user) {
+      // Kullanıcının tüm gün boyunca yaktığı toplam kalori miktarını bul
+      const workoutData = await WorkoutModel.aggregate([
+        {
+          $match: { userName: user.name },
+        },
+        {
+          $group: {
+            _id: null,
+            totalCalories: { $sum: "$caloriesBurned" },
+          },
+        },
+      ]);
+
+      // Toplam kalorileri analiz sayfasına gönder
+      if (workoutData.length > 0) {
+        res.json({ totalCalories: workoutData[0].totalCalories });
+      } else {
+        res.json({ totalCalories: 0 });
+      }
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching total calories:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

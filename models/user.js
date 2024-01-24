@@ -62,10 +62,7 @@ const nutritionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  date: { type: Date, default: Date.now },
   quantity: {
     type: String,
     required: true,
@@ -93,10 +90,7 @@ const workoutSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
+  date: { type: Date, default: Date.now },
   exerciseName: {
     type: String,
     required: true,
