@@ -1,5 +1,5 @@
 async function calculateNutri(index) {
-  var apiKey = "cc21719f62036fd3f120be18e2bce862"; // Replace with your Nutritionix API key
+  var apiKey = "b577da81671f0bfc280406a5b9bd1f3b"; // Replace with your Nutritionix API key
   var apiId = "38b6b0bc"; // Replace with your Nutritionix API ID
   var recipe = document.getElementById(`recipe${index}`).value;
   var exercises = recipe
@@ -39,7 +39,7 @@ async function calculateNutri(index) {
 
         // Sunucuya göndermek için kullanılacak veri
         const nutritionData = {
-          quantity: data.foods[0].serving_qty, // İsteğe bağlı olarak değiştirilebilir
+          quantity: data.foods[0].serving_qty,
           food: data.foods[0].food_name,
           calories: calories,
           protein: data.foods[0].nf_protein || 0,

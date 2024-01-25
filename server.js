@@ -5,13 +5,13 @@ const cookieParser = require("cookie-parser");
 const bcryptjs = require("bcryptjs");
 const multer = require("multer");
 
-const upload = multer({ dest: "frontend/" }); // Bu dizini ihtiyaca göre güncelleyin
+const upload = multer({ dest: "frontend/" });
 
 const path = require("path");
 const app = express();
 const PORT = 3005;
 
-app.use(express.static(path.join(__dirname, "frontend"))); // Bu satırı ekledik
+app.use(express.static(path.join(__dirname, "frontend")));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
@@ -49,7 +49,7 @@ app.post("/register", async (req, res) => {
     } else {
       const token = jwt.sign(
         { name: req.body.name },
-        "LoremipsumdolorsitmetconsecteturadipisicingelitErrorassumendaciduntuaeaborumepellendus" // Özel anahtarı güvenli bir şekilde saklayın ve buraya ekleyin
+        "LoremipsumdolorsitmetconsecteturadipisicingelitErrorassumendaciduntuaeaborumepellendus"
       );
       res.cookie("jwt", token, {
         maxAge: 6000,
@@ -82,7 +82,7 @@ app.post("/login", async (req, res) => {
   try {
     const check = await UserModel.findOne({ name: req.body.name });
     if (!check) {
-      return res.status(400).json({ error: "User not found" });
+      return res.status(400).send("User not found");
     }
 
     const passCheck = await compare(req.body.password, check.password);
@@ -96,7 +96,7 @@ app.post("/login", async (req, res) => {
       });
       res.sendFile(path.join(__dirname, "frontend", "home.html"));
     } else {
-      return res.status(400).json({ error: "Invalid password" });
+      return res.status(400).send("Invalid password");
     }
   } catch (error) {
     console.error("User login error:", error);
@@ -114,10 +114,9 @@ app.get("/get-current-user", (req, res) => {
 app.post("/logout", (req, res) => {
   // Kullanıcı oturumunu temizle
   currentUser = null;
-  // İlgili cookie'yi temizle (Eğer kullanılıyorsa)
+
   res.clearCookie("jwt");
-  // İlgili token'ı temizle (Eğer kullanılıyorsa)
-  // Örneğin: token = null;
+
   res.json({ message: "Çıkış başarılı" });
 });
 app.get("/profile", async (req, res) => {
@@ -131,15 +130,12 @@ app.get("/profile", async (req, res) => {
     if (user) {
       // JSON verilerini doğrudan gönder
       res.json({
-        userimage: user.userimage,
         name: user.name,
         email: user.email,
         gender: user.gender,
         height: user.height,
         weight: user.weight,
         age: user.age,
-        userimage: user.userimage,
-        // Diğer bilgileri de ekle
       });
     } else {
       res.status(404).json({ error: "User not found" });
@@ -150,19 +146,16 @@ app.get("/profile", async (req, res) => {
   }
 });
 
-// editProfile endpoint'ını güncelleyin
 app.post("/editProfile", async (req, res) => {
   try {
     const {
       name,
-      username,
       email,
       height,
       weight,
       oldPassword,
       newPassword,
       confirmPassword,
-      userimage,
     } = req.body;
 
     // Kullanıcı adını currentUser'dan alın
@@ -174,11 +167,9 @@ app.post("/editProfile", async (req, res) => {
     if (user) {
       // Check if old password matches
       user.name = name || user.name;
-      user.username = username || user.username;
       user.email = email || user.email;
       user.height = height || user.height;
       user.weight = weight || user.weight;
-      user.userimage = userimage !== undefined ? userimage : user.userimage;
 
       // Yeni şifre varsa güncelle
       if (newPassword && confirmPassword) {
@@ -200,14 +191,19 @@ app.post("/editProfile", async (req, res) => {
       await user.save();
 
       // Güncellenmiş kullanıcı bilgilerini JSON olarak yanıtla
-      res.json({
+      const updatedUser = {
         name: user.name,
-        username: user.username,
         email: user.email,
         height: user.height,
         weight: user.weight,
-        userimage: user.userimage,
-      });
+      };
+
+      // Çıkış yap
+      currentUser = null;
+      res.clearCookie("jwt");
+
+      // Redirect to login page
+      res.json({ redirect: "/login" });
     } else {
       res.status(404).json({ error: "Kullanıcı bulunamadı" });
     }
@@ -224,7 +220,6 @@ app.post("/addNutrition", async (req, res) => {
     const userName = currentUser ? currentUser.name : null;
 
     if (userName) {
-      // Beslenme verisini oluşturun
       const nutritionData = new NutritionModel({
         userName, // Kullanıcının adını ekle
         quantity,
@@ -324,7 +319,6 @@ app.post("/addWorkout", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-// Add this route after your existing routes
 app.get("/getWorkoutDataByUser", async (req, res) => {
   try {
     const userName = req.query.userName;

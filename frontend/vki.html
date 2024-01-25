@@ -23,7 +23,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: url("./img/aaqqqq.jpg") center no-repeat;
+      background: url("./img/bmi.jpg") center no-repeat;
       background-size: cover;
       font-family: 'Cormorant Garamond', serif;
       font-family: 'Dancing Script', cursive;
@@ -51,7 +51,6 @@
     .navbar-brand:hover,
     .navbar-nav a:hover {
       transform: scale(1.1);
-      /* Büyüme faktörünü ayarlayabilirsiniz */
       color: #B6C767;
     }
 
@@ -63,14 +62,11 @@
 
     #calculateBtn {
       background-color: #B6C767;
-      /* Turuncu renk */
       transition: all 0.3s ease;
-      /* Animasyon süresi ve efekti */
     }
 
     #calculateBtn:hover {
       transform: scale(1.1);
-      /* Hover efekti ile butonun boyutunu büyütme */
     }
   </style>
 
@@ -78,7 +74,6 @@
 
 <body>
   <!-- navbar -->
-  <!-- NAVBARI AKTARMANIN KISA YOLU VAR BUL -->
   <nav class="navbar navbar-expand-md navbar-light" style="background-color: transparent;">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.html" style="font-size: 25px;">WorkFit Wellness</a>
@@ -228,7 +223,6 @@
       function displayBMIResult(bmi) {
         var resultContainer = document.getElementById('bmiResult');
 
-        // BMI değerine göre mesaj oluşturma
         var message;
         if (bmi < 18.5) {
           message = "Under ideal weight";
@@ -282,7 +276,6 @@
     </div>
     </p>
   </div>
-    <!-- Diğer HTML dosyalarında bu satırı ekleyin -->
 <script src="navbar-script.js"></script>
 </body>
 

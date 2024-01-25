@@ -237,7 +237,6 @@
         .then(response => response.json())
         .then(user => {
 
-          // Diğer kullanıcı verilerini güncelleyin
           document.getElementById('name').textContent = user.name;
           document.getElementById('userEmail').textContent = user.email;
           document.getElementById('userGender').textContent = user.gender;

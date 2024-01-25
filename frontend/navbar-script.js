@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => response.json())
       .then((data) => {
         // Çıkış başarılı olduğunda yapılacak işlemler
-        console.log(data); // İsteğe bağlı: Sunucudan gelen yanıtı kontrol et
-        // Örneğin, kullanıcıyı giriş sayfasına yönlendirme gibi işlemler yapabilirsiniz
-        window.location.href = "/login.html"; // Örnek: Kullanıcıyı giriş sayfasına yönlendir
+        console.log(data);
+
+        window.location.href = "/login.html";
       })
       .catch((error) => console.error("Çıkış işlemi sırasında hata:", error));
   });

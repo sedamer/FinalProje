@@ -18,6 +18,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Dancing+Script:wght@500&family=Raleway:wght@300&display=swap"
     rel="stylesheet" />
+    
 </head>
 <style>
   body {
@@ -25,7 +26,7 @@
     padding: 0;
     background-color: aliceblue;
     background-size: cover;
-    background: url('./img/aaasssttttttttttttttttt.jpg');
+    background: url('./img/analiz.jpg');
     font-family: "Cormorant Garamond", serif;
     font-family: "Dancing Script", cursive;
     font-family: "Raleway", sans-serif;
@@ -51,8 +52,39 @@
   .navbar-brand:hover,
   .navbar-nav a:hover {
     transform: scale(1.1);
-    /* Büyüme faktörünü ayarlayabilirsiniz */
     color:#E47D84;
+  }
+  .table-container {
+  text-align: center; 
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  margin-top: 20px;
+  border: 2px solid black; 
+}
+
+table {
+  border-collapse: collapse;
+  width: 75%;
+  margin: auto; /* Tabloyu ortala */
+}
+  th, td {
+    border: 2px solid black;
+    
+    padding: 8px;
+    text-align: left;
+  }
+
+  #nutritionDataContainer,
+#workoutDataContainer {
+  margin-bottom: 100px; 
+  margin-top: 20px;
+
+}
+  #caption{
+    color: #8055A2;     font-size: larger;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
   }
 </style>
 
@@ -109,53 +141,59 @@
   </nav>
 
   </nav>
-  <div id="totalCaloriesContainer">
-    <!-- Toplam kaloriler burada gösterilecek -->
+  <div  id="nutritionDataContainer">
   </div>
-
-  <!-- Add this section to your analiz.html file where you want to display the nutrition data -->
-  <div id="nutritionDataContainer">
-    <!-- Nutrition data will be displayed here dynamically -->
-  </div>
-  <!-- Egzersiz (Workout) Verileri Konteynerı -->
   <div id="workoutDataContainer">
-    <!-- Egzersiz verileri burada dinamik olarak gösterilecek -->
   </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div style="text-align: center; color: #8055A2; font-weight:bold;" id="totalCaloriesContainer">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div>
+        <img src="img/kızz (1).png" style="width: 40%;" alt="">
+      </div>
+    </div>
+  </div>
+  
   <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      try {
-        // Fetch the current user's information
-        const currentUserResponse = await fetch("/get-current-user");
-        const currentUser = await currentUserResponse.json();
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const currentUserResponse = await fetch("/get-current-user");
+    const currentUser = await currentUserResponse.json();
 
-        if (currentUser.error) {
-          throw new Error(currentUser.error);
-        }
-        const totalCaloriesResponse = await fetch(`/getTotalCaloriesByUser?userName=${currentUser.name}`);
-        const totalCaloriesData = await totalCaloriesResponse.json();
-        console.log("Total Calories Data:", totalCaloriesData);
-        const totalCaloriesContainer = document.getElementById("totalCaloriesContainer");
+    if (currentUser.error) {
+      throw new Error(currentUser.error);
+    }
 
-        // Display the total calories
-        totalCaloriesContainer.innerHTML = `<p>Total Calories Burned Today: ${totalCaloriesData.totalCalories} calories</p>`;
-        // Make a fetch request to your server endpoint that returns nutrition data
+    const totalCaloriesResponse = await fetch(`/getTotalCaloriesByUser?userName=${currentUser.name}`);
+    const totalCaloriesData = await totalCaloriesResponse.json();
+    console.log("Total Calories Data:", totalCaloriesData);
+    const totalCaloriesContainer = document.getElementById("totalCaloriesContainer");
 
-        
-        const response = await fetch(`/getNutritionDataByUser?userName=${currentUser.name}`);
-        const nutritionData = await response.json();
-        console.log("Nutrition Data:", nutritionData);
-        // Egzersiz verileri için fetch isteği
-        const workoutResponse = await fetch(`/getWorkoutDataByUser?userName=${currentUser.name}`);
-        const workoutData = await workoutResponse.json();
-        console.log("Workout Data:", workoutData);
+    totalCaloriesContainer.innerHTML = `<p>Total Calories Burned Today: ${totalCaloriesData.totalCalories} calories</p>`;
 
-        // Get the container where you want to display the data
-        const nutritionDataContainer = document.getElementById("nutritionDataContainer");
+    const response = await fetch(`/getNutritionDataByUser?userName=${currentUser.name}`);
+    const nutritionData = await response.json();
+    console.log("Nutrition Data:", nutritionData);
+    // Egzersiz verileri için fetch isteği
+    const workoutResponse = await fetch(`/getWorkoutDataByUser?userName=${currentUser.name}`);
+    const workoutData = await workoutResponse.json();
+    console.log("Workout Data:", workoutData);
 
-        if (nutritionData.length > 0) {
-          // Create an HTML table to display the data
-          const table = `
-        <table style="border: 1px solid black; width:100%;">
+    // Get the container where you want to display the nutrition data
+    const nutritionDataContainer = document.getElementById("nutritionDataContainer");
+
+    if (nutritionData.length > 0) {
+      // Group nutritionData by date
+      const groupedNutritionData = groupDataByDate(nutritionData);
+
+      const table = `
+      
+        <h1 id="caption">Nutrition Analysis</h1>
+        <table class="table-container ">
           <tr>
             <th>Food</th>
             <th>Calories</th>
@@ -163,59 +201,99 @@
             <th>Carbohydrate(gr)</th>
             <th>Fats(gr)</th>
             <th>Date</th>
-
           </tr>
-          ${nutritionData.map(data => `
+          ${groupedNutritionData.map(group => `
             <tr>
-              <td>${data.food}</td>
-              <td>${data.calories}</td>
-              <td>${data.protein}</td>
-              <td>${data.carbohydrate}</td>
-              <td>${data.fats}</td>
-              <td>${new Date(data.date).toLocaleDateString()}</td>
-
-            </tr>`).join('')}
+              <td colspan="6" style="color: #8055A2; font-weight:bold;">${group.date} - Total Calories: ${calculateTotalCalories(group.data)} calories</td>
+            </tr>
+            ${group.data.map(data => `
+              <tr>
+                <td>${data.food}</td>
+                <td>${data.calories}</td>
+                <td>${data.protein}</td>
+                <td>${data.carbohydrate}</td>
+                <td>${data.fats}</td>
+                <td style="color: #8055A2; font-weight:bold;">${new Date(data.date).toLocaleDateString()}</td>
+              </tr>`).join('')}
+          `).join('')}
         </table>
       `;
 
-          // Append the table to the container
-          nutritionDataContainer.innerHTML = table;
-        } else {
-          // Display a message if there is no data
-          nutritionDataContainer.innerHTML = "<p>No nutrition data available.</p>";
-        }// Egzersiz verilerini göstermek için konteyner
-        const workoutDataContainer = document.getElementById("workoutDataContainer");
+      // Append the table to the nutrition data container
+      nutritionDataContainer.innerHTML = table;
+    } else {
+      // Display a message if there is no nutrition data
+      nutritionDataContainer.innerHTML = "<p>No nutrition data available.</p>";
+    }
 
-        if (workoutData.length > 0) {
-          const workoutTable = `
-              <table style="border: 1px solid black; width:100%;">
-                <!-- Tablo başlıkları -->
-                <tr>
-                  <th>Exercise</th>
-                  <th>Calories Burned</th>
-                  <th>Duration Minutes</th>
-                  <th>Date</th>
-                </tr>
-                <!-- Her bir egzersiz verisi için bir satır oluştur -->
-                ${workoutData.map(data => `
-                  <tr>
-                    <td>${data.exerciseName}</td>
-                    <td>${data.caloriesBurned}</td>
-                    <td>${data.durationMinutes}</td>
-                    <td>${new Date(data.date).toLocaleDateString()}</td>
-                  </tr>`).join('')}
-              </table>
-            `;
-          workoutDataContainer.innerHTML = workoutTable;
-        } else {
-          workoutDataContainer.innerHTML = "<p>No workout data available.</p>";
-        }
-      } catch (error) {
-        console.error("Error fetching nutrition data:", error);
-        // Display an error message on the page if there is an issue
-        nutritionDataContainer.innerHTML = "<p>Error fetching nutrition data.</p>";
-      }
-    });
+    // Get the container where you want to display the workout data
+    const workoutDataContainer = document.getElementById("workoutDataContainer");
+
+    if (workoutData.length > 0) {
+      const workoutTable = `
+        <h1 id="caption">Workout Analysis</h1>
+        <table>
+          <!-- Table headers -->
+          <tr>
+            <th>Exercise</th>
+            <th>Calories Burned</th>
+            <th>Duration Minutes</th>
+            <th>Date</th>
+          </tr>
+          <!-- Create a row for each workout data -->
+          ${workoutData.map((data, index) => `
+            <tr>
+              <td>${data.exerciseName}</td>
+              <td>${data.caloriesBurned}</td>
+              <td>${data.durationMinutes}</td>
+              <td style="${isNewDay(index, workoutData) ? 'color: #8055A2; font-weight:bold;' : ''}">${new Date(data.date).toLocaleDateString()}</td>
+            </tr>`).join('')}
+        </table>
+      `;
+      workoutDataContainer.innerHTML = workoutTable;
+    } else {
+      workoutDataContainer.innerHTML = "<p>No workout data available.</p>";
+    }
+  } catch (error) {
+    console.error("Error fetching nutrition data:", error);
+    // Display an error message on the page if there is an issue
+    const nutritionDataContainer = document.getElementById("nutritionDataContainer");
+    nutritionDataContainer.innerHTML = "<p>Error fetching nutrition data.</p>";
+  }
+});
+
+// Helper function to group data by date
+function groupDataByDate(data) {
+  const groupedData = [];
+  data.forEach(item => {
+    const itemDate = new Date(item.date).toLocaleDateString();
+    const existingGroup = groupedData.find(group => group.date === itemDate);
+
+    if (existingGroup) {
+      existingGroup.data.push(item);
+    } else {
+      groupedData.push({
+        date: itemDate,
+        data: [item]
+      });
+    }
+  });
+
+  return groupedData;
+}
+
+// Helper function to calculate total calories for a given day
+function calculateTotalCalories(data) {
+  return data.reduce((total, item) => total + item.calories, 0);
+}
+function isNewDay(index, data) {
+  if (index === 0) {
+    return true;
+  }
+  const currentDate = new Date(data[index].date).getDate();
+  const previousDate = new Date(data[index - 1].date).getDate();
+  return currentDate !== previousDate;
+}
   </script>
 
   <script src="navbar-script.js"></script>

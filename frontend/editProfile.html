@@ -18,6 +18,12 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"></script>
+      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-zfdMDnbQD7JPH2GCeVRl3VYfJ3XD64G16W5A5a9ZJrDxONc5ecjZEQ6jzxRErNUZKyRRJl5Uvewk1/7Qwe5R8A==" crossorigin="anonymous" />
+
+
+
+      
   <style>
     body {
       margin: 0;
@@ -57,7 +63,6 @@
     .navbar-brand:hover,
     .navbar-nav a:hover {
       transform: scale(1.1);
-      /* Büyüme faktörünü ayarlayabilirsiniz */
       color: #DC143C;
     }
 
@@ -164,7 +169,7 @@
 
                               <div class="form-group">
                                 <label>Full Name</label>
-                                <input class="form-control" type="text" name="name">
+                                <input class="form-control" type="text" name="name"placeholder="Name" >
                               </div>
                             </div>
                             
@@ -172,7 +177,7 @@
                             <div class="col">
                               <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" type="text" name="email">
+                                <input class="form-control" type="text" name="email" placeholder="Email" >
                               </div>
                             </div>
                           </div>
@@ -197,32 +202,25 @@
                             </div>
                             <!-- change password -->
                             <h4 class="my-4" id="fonti">Change Password</h4>
-                          <div class="col-xxl-6">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <label for="exampleInputPassword1" class="form-label">Old password </label>
-                                
-                                </span>
-                                <i class="fas fa-eye"></i>
-                                <input type="password" name="oldPassword" id="password1" placeholder="Old Password" required class="form-control" id="exampleInputPassword1">
-
-                              </div>
-                              <div class="col-md-6">
-                                <label for="exampleInputPassword2" class="form-label">New password</label>
-                                  <i class="fas fa-eye"></i>
-                                </span>
-                                <input type="password" name="newPassword" id="password2" placeholder="New Password" required class="form-control" id="exampleInputPassword2">
-
-                              </div>
-                              <div class="col-md-6">
-                                <label for="exampleInputPassword3" class="form-label">Confirm Password</label>
-                                  <i class="fas fa-eye"></i>
-                                </span>
-                                <input type="password" name="confirmPassword" id="password3" placeholder="Confirm Password" required class="form-control" id="exampleInputPassword3">
-
-                              </div>
+                            <div class="col-xxl-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="exampleInputPassword1" class="form-label">Old password</label>
+                                        
+                                        <input type="password" name="oldPassword" id="password1" placeholder="Old Password" required class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputPassword2" class="form-label">New password</label>
+                                        
+                                        <input type="password" name="newPassword" id="password2" placeholder="New Password" required class="form-control" id="exampleInputPassword2">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="exampleInputPassword3" class="form-label">Confirm Password</label>
+                                        
+                                        <input type="password" name="confirmPassword" id="password3" placeholder="Confirm Password" required class="form-control" id="exampleInputPassword3">
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
                         <form method="post" enctype="multipart/form-data">
                          
@@ -279,15 +277,19 @@ async function saveChanges() {
     updateInputValue('height', result.height);
     updateInputValue('weight', result.weight);
 
-    const userNameElement = document.getElementById("Name");
+    const userNameElement = document.getElementById("userName");
     if (userNameElement) {
       userNameElement.textContent = result.name;
     }
 
     alert("Changes saved successfully!");
 
-// Reload the page to reflect the updated data
-document.location.reload();
+ // Fetch the updated user profile and update the "Profile" page
+ const profileResponse = await fetch('/profile');
+    const userProfile = await profileResponse.json();
+
+    // Update profile page with the new data
+    updateProfilePage(userProfile);
 
 } catch (error) {
 alert(`Error: ${error.message}`);

@@ -1,6 +1,6 @@
 // calculateCalo
 function calculateCalories() {
-  var apiKey = "21f646cc531ee89503677fed7e8b1997";
+  var apiKey = "1fb6579b8925263587440cd20779697f";
   var apiId = "38b6b0bc";
   var exerciseInput = document.getElementById("exerciseInput").value;
   var exercises = exerciseInput
