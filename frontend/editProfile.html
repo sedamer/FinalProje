@@ -284,11 +284,9 @@ async function saveChanges() {
 
     alert("Changes saved successfully!");
 
- // Fetch the updated user profile and update the "Profile" page
  const profileResponse = await fetch('/profile');
     const userProfile = await profileResponse.json();
 
-    // Update profile page with the new data
     updateProfilePage(userProfile);
 
 } catch (error) {

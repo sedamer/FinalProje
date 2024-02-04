@@ -1,4 +1,3 @@
-// calculateCalo
 function calculateCalories() {
   var apiKey = "1fb6579b8925263587440cd20779697f";
   var apiId = "38b6b0bc";
@@ -21,7 +20,7 @@ function calculateCalories() {
         "x-app-key": apiKey,
       },
       body: JSON.stringify({
-        query: `${exercise} for 1 minute`, // Assuming each exercise is done for 1 minute
+        query: `${exercise} for 1 minute`,
       }),
     };
 
@@ -62,7 +61,6 @@ function calculateCalories() {
             index + 1
           }</p><br>`;
         }
-        // Döngü bittiğinde toplam kaloriyi göster
         if (index === exercises.length - 1) {
           resultContainer.innerHTML += `<p>Total Calories Burned: ${totalCalories}</p>`;
         }

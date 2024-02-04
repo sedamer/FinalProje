@@ -53,7 +53,6 @@
   <body>
     <nav class="navbar navbar-dark fixed-top">
       <div class="container">
-        <!-- Navbar Brand (Site Name) -->
         <a class="navbar-brand" href="login.html" style="font-size: 35px"
           >Workfit Wellness</a
         >
@@ -92,21 +91,18 @@
         const urlParams = new URLSearchParams(window.location.search);
         const verificationCodeParam = urlParams.get("verificationCode");
         if (verificationCodeParam) {
-          //Backend de doğrulama isteği yap.
           fetch(`/api/dogrulama/${verificationCodeParam}`)
             .them((response) => response.text())
             .then((data) => {
-              //Doğrulama sonucuna göre mesajı güncelle
               const messageElement = document.getElementById("message");
               messageElement.textContent = data;
-              window.location.href = "/"; // anasayfanın urlsini buraya yazın
+              window.location.href = "/";
             })
             .catch((error) => {
               console.log(error);
             });
         } else {
-          //Doğrulama kodu bulunamadı, ana sayfaya yönlendiriliyor.
-          window.location.href = "/"; // Ana sayfanın URL'sini buraya yazın
+          window.location.href = "/";
         }
       }
     </script>

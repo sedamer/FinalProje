@@ -35,7 +35,6 @@ app.get("/", (req, res) => {
       "LoremipsumdolorsitmetconsecteturadipisicingelitErrorassumendaciduntuaeaborumepellendus"
     );
     res.render("home", { name: verify.name });
-    //  res.sendFile(path.join(__dirname, "frontend", "login.html"));
   } else {
     res.render("login");
   }
@@ -121,14 +120,11 @@ app.post("/logout", (req, res) => {
 });
 app.get("/profile", async (req, res) => {
   try {
-    // Kullanıcı adını currentUser'dan alın
     const name = currentUser ? currentUser.name : null;
 
-    // Kullanıcı adına göre veritabanından kullanıcıyı bul
     const user = await UserModel.findOne({ name: name });
 
     if (user) {
-      // JSON verilerini doğrudan gönder
       res.json({
         name: user.name,
         email: user.email,
@@ -158,10 +154,8 @@ app.post("/editProfile", async (req, res) => {
       confirmPassword,
     } = req.body;
 
-    // Kullanıcı adını currentUser'dan alın
     const userName = currentUser ? currentUser.name : null;
 
-    // Kullanıcı adına göre veritabanından kullanıcıyı bul
     const user = await UserModel.findOne({ name: userName });
 
     if (user) {
@@ -216,7 +210,6 @@ app.post("/addNutrition", async (req, res) => {
   try {
     const { quantity, food, calories, protein, carbohydrate, fats } = req.body;
 
-    // Kullanıcı adını currentUser'dan alın
     const userName = currentUser ? currentUser.name : null;
 
     if (userName) {
@@ -230,7 +223,7 @@ app.post("/addNutrition", async (req, res) => {
         fats,
       });
 
-      console.log("Received Nutrition Data:", nutritionData); // Log the received data
+      console.log("Received Nutrition Data:", nutritionData);
       nutritionData.date = new Date();
 
       // Veritabanına kaydetme işlemi
@@ -248,17 +241,14 @@ app.post("/addNutrition", async (req, res) => {
 
 app.get("/getNutritionDataByDate", async (req, res) => {
   try {
-    // Kullanıcı adını currentUser'dan alın
     const userName = currentUser ? currentUser.name : null;
 
-    // Kullanıcı adına göre veritabanından kullanıcıyı bul
     const user = await UserModel.findOne({ name: userName });
 
     if (user) {
       // Kullanıcının besin kayıtlarını çek
       const nutritionData = await NutritionModel.find({ user: user.name }); // _id üzerinden filtrele
 
-      // JSON verilerini doğrudan gönder
       res.json(nutritionData);
     } else {
       res.status(404).json({ error: "User not found" });
@@ -268,7 +258,6 @@ app.get("/getNutritionDataByDate", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-// Add this route after your existing routes
 app.get("/getNutritionDataByUser", async (req, res) => {
   try {
     const userName = req.query.userName;
@@ -277,10 +266,8 @@ app.get("/getNutritionDataByUser", async (req, res) => {
     const user = await UserModel.findOne({ name: userName });
 
     if (user) {
-      // Fetch nutrition data for the user
       const nutritionData = await NutritionModel.find({ userName: user.name });
 
-      // Return the nutrition data as JSON
       res.json(nutritionData);
     } else {
       res.status(404).json({ error: "User not found" });
@@ -298,15 +285,13 @@ app.post("/addWorkout", async (req, res) => {
     const userName = currentUser ? currentUser.name : null;
 
     if (userName) {
-      // Egzersiz verisini oluşturun, bu noktada user'ın _id'sini kullanın
       const workoutData = {
-        userName, // Kullanıcının adını ekle
+        userName,
         exerciseName,
         caloriesBurned,
         durationMinutes,
       };
 
-      // Veritabanına kaydetme işlemi
       const workout = new WorkoutModel(workoutData);
       await workout.save();
 
@@ -323,14 +308,11 @@ app.get("/getWorkoutDataByUser", async (req, res) => {
   try {
     const userName = req.query.userName;
 
-    // Find the user by name
     const user = await UserModel.findOne({ name: userName });
 
     if (user) {
-      // Fetch workout data for the user
       const workoutData = await WorkoutModel.find({ userName: user.name });
 
-      // Return the workout data as JSON
       res.json(workoutData);
     } else {
       res.status(404).json({ error: "User not found" });
@@ -340,16 +322,13 @@ app.get("/getWorkoutDataByUser", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-// Analiz sayfasına toplam kalorileri gönderen endpoint
 app.get("/getTotalCaloriesByUser", async (req, res) => {
   try {
     const userName = req.query.userName;
 
-    // Kullanıcı adına göre veritabanından kullanıcıyı bul
     const user = await UserModel.findOne({ name: userName });
 
     if (user) {
-      // Kullanıcının tüm gün boyunca yaktığı toplam kalori miktarını bul
       const workoutData = await WorkoutModel.aggregate([
         {
           $match: { userName: user.name },
@@ -362,7 +341,6 @@ app.get("/getTotalCaloriesByUser", async (req, res) => {
         },
       ]);
 
-      // Toplam kalorileri analiz sayfasına gönder
       if (workoutData.length > 0) {
         res.json({ totalCalories: workoutData[0].totalCalories });
       } else {

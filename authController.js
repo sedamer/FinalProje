@@ -1,9 +1,5 @@
-// wfitwellness@gmail.com
-// şifre : workfitwellnes01
-
 const UserModel = require("./models/user");
-// const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwentoken");
+
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -17,7 +13,7 @@ const transporter = nodemailer.createTransport({
 var mailOptions = {
   from: "wfitwellness@gmail.com",
   to: "mrcnsedaa@gmail.com",
-  subject: "selam sedacım",
+  subject: "selam",
   text: "That was easy!",
 };
 

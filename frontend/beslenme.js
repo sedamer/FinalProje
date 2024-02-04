@@ -1,6 +1,6 @@
 async function calculateNutri(index) {
-  var apiKey = "b577da81671f0bfc280406a5b9bd1f3b"; // Replace with your Nutritionix API key
-  var apiId = "38b6b0bc"; // Replace with your Nutritionix API ID
+  var apiKey = "b577da81671f0bfc280406a5b9bd1f3b";
+  var apiId = "38b6b0bc";
   var recipe = document.getElementById(`recipe${index}`).value;
   var exercises = recipe
     .split("\n")
@@ -88,7 +88,6 @@ async function calculateNutri(index) {
         }</p><br>`;
       }
 
-      // Display total calories when all exercises are processed
       if (i === exercises.length - 1) {
         resultContainer.innerHTML += `<p>Total Calories Consumed: ${totalCalories}</p>`;
       }
