@@ -50,7 +50,6 @@ function calculateCalories() {
           </table>
           <br>`;
 
-          // Save the workout to the database
           saveWorkoutToDatabase({
             exerciseName: data.exercises[0].name,
             caloriesBurned: calories,

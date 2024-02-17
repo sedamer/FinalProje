@@ -37,7 +37,6 @@ async function calculateNutri(index) {
         var calories = data.foods[0].nf_calories;
         totalCalories += calories;
 
-        // Sunucuya göndermek için kullanılacak veri
         const nutritionData = {
           quantity: data.foods[0].serving_qty,
           food: data.foods[0].food_name,
@@ -47,7 +46,6 @@ async function calculateNutri(index) {
           fats: data.foods[0].nf_total_fat || 0,
         };
 
-        // Sunucuya POST isteği yap
         const saveRequestOptions = {
           method: "POST",
           headers: {

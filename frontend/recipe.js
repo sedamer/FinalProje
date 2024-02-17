@@ -1,22 +1,19 @@
-// recipe api çekme fetch etme işlemi
 const searchBtn = document.getElementById("search-btn");
 const mealList = document.getElementById("meal");
 const mealDetailsContent = document.querySelector(".meal-details-content");
 const recipeCloseBtn = document.getElementById("recipe-close-btn");
 
-// event listeners
 searchBtn.addEventListener("click", getMealList);
 mealList.addEventListener("click", getMealRecipe);
 recipeCloseBtn.addEventListener("click", () => {
   mealDetailsContent.parentElement.classList.remove("showRecipe");
 });
 
-// get meal list that matches with the ingredients
 function getMealList() {
   let searchInputTxt = document.getElementById("search-input").value.trim();
   fetch(
     `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInputTxt}`
-  ) // veriyi çekiyor meal db den
+  )
     .then((response) => response.json())
     .then((data) => {
       let html = "";
@@ -44,24 +41,21 @@ function getMealList() {
     });
 }
 
-// get recipe of the meal
 function getMealRecipe(e) {
   e.preventDefault();
   if (e.target.classList.contains("recipe-btn")) {
     let mealItem = e.target.parentElement.parentElement;
     fetch(
       `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealItem.dataset.id}`
-    ) // api isteği
+    )
       .then((response) => response.json())
       .then((data) => mealRecipeModal(data.meals));
   }
 }
 
-// create a modal
 function mealRecipeModal(meal) {
   console.log(meal);
   meal = meal[0];
-  //malzmeleler kısmı yap
   let html = `
         <h2 class = "recipe-title">${meal.strMeal}</h2>
         <p class = "recipe-category">${meal.strCategory}</p>

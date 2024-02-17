@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const { UserModel, NutritionModel, WorkoutModel } = require("./models/user");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
@@ -9,7 +10,7 @@ const upload = multer({ dest: "frontend/" });
 
 const path = require("path");
 const app = express();
-const PORT = 3005;
+const port = process.env.PORT;
 
 app.use(express.static(path.join(__dirname, "frontend")));
 app.use(express.json());
@@ -355,6 +356,6 @@ app.get("/getTotalCaloriesByUser", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
 });
