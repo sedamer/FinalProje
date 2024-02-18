@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 function calculateCalories() {
   var apiKey = "1fb6579b8925263587440cd20779697f";
   var apiId = "38b6b0bc";

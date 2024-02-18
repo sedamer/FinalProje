@@ -1,3 +1,6 @@
+// calculateNutri();
+/* eslint-disable no-unused-vars */
+
 async function calculateNutri(index) {
   var apiKey = "b577da81671f0bfc280406a5b9bd1f3b";
   var apiId = "38b6b0bc";

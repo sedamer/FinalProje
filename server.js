@@ -1,12 +1,11 @@
+/*eslint-env node*/
+
 const express = require("express");
 require("dotenv").config();
 const { UserModel, NutritionModel, WorkoutModel } = require("./models/user");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const bcryptjs = require("bcryptjs");
-const multer = require("multer");
-
-const upload = multer({ dest: "frontend/" });
 
 const path = require("path");
 const app = express();
@@ -184,14 +183,6 @@ app.post("/editProfile", async (req, res) => {
 
       // Veritabanında güncelle
       await user.save();
-
-      // Güncellenmiş kullanıcı bilgilerini JSON olarak yanıtla
-      const updatedUser = {
-        name: user.name,
-        email: user.email,
-        height: user.height,
-        weight: user.weight,
-      };
 
       // Çıkış yap
       currentUser = null;

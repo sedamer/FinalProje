@@ -1,3 +1,5 @@
+/*eslint-env node*/
+
 const mongoose = require("mongoose");
 const uri =
   "mongodb+srv://sedamercan:sedamercan123@wellness.veohtvh.mongodb.net/";
